@@ -7,4 +7,44 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\E-Commerce.Common\E-Commerce.Common.csproj" />
+    <ProjectReference Include="..\E-Commerce.Domain\E-Commerce.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ControlAccess\Sessions\Mappings\" />
+    <Folder Include="ControlAccess\Sessions\Repositories\" />
+    <Folder Include="Payment\Categories\Mappings\" />
+    <Folder Include="Payment\Categories\Repositories\" />
+    <Folder Include="Payment\Items\Mappings\" />
+    <Folder Include="Payment\Items\Repositories\" />
+    <Folder Include="Payment\Ratings\Mappings\" />
+    <Folder Include="Payment\Ratings\Repositories\" />
+    <Folder Include="Payment\Stocks\Mappings\" />
+    <Folder Include="Payment\Stocks\Repositories\" />
+    <Folder Include="Payment\SubCategories\Mappings\" />
+    <Folder Include="Payment\SubCategories\Repositories\" />
+    <Folder Include="Product\" />
+    <Folder Include="Purcharse\Emails\Mappings\" />
+    <Folder Include="Purcharse\Emails\Repositories\" />
+    <Folder Include="Purcharse\OrdersItems\Mappings\" />
+    <Folder Include="Purcharse\OrdersItems\Repositories\" />
+    <Folder Include="Purcharse\Orders\Mappings\" />
+    <Folder Include="Purcharse\Orders\Repositories\" />
+    <Folder Include="Purcharse\Status\Mappings\" />
+    <Folder Include="Purcharse\Status\Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+  </ItemGroup>
+
 </Project>

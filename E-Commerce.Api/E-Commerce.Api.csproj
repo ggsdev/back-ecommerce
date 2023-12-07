@@ -1,15 +1,59 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
+    <InvariantGlobalization>false</InvariantGlobalization>
     <RootNamespace>E_Commerce.Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\E-Commerce.Domain\E-Commerce.Domain.csproj" />
+    <ProjectReference Include="..\E-Commerce.Infra.Data\E-Commerce.Infra.Data.csproj" />
+    <ProjectReference Include="..\E-Commerce.Infra.IoC\E-Commerce.Infra.IoC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ControlAccess\Infos\Controllers\" />
+    <Folder Include="ControlAccess\Infos\ViewModels\" />
+    <Folder Include="ControlAccess\Sessions\Controllers\" />
+    <Folder Include="ControlAccess\Sessions\Dtos\" />
+    <Folder Include="ControlAccess\Sessions\ViewModels\" />
+    <Folder Include="ControlAccess\Users\ViewModels\" />
+    <Folder Include="Payment\" />
+    <Folder Include="Product\Categories\Controllers\" />
+    <Folder Include="Product\Categories\Dtos\" />
+    <Folder Include="Product\Categories\ViewModels\" />
+    <Folder Include="Product\Items\Controllers\" />
+    <Folder Include="Product\Items\Dtos\" />
+    <Folder Include="Product\Items\ViewModels\" />
+    <Folder Include="Product\Ratings\Controllers\" />
+    <Folder Include="Product\Ratings\Dtos\" />
+    <Folder Include="Product\Ratings\ViewModels\" />
+    <Folder Include="Product\Stocks\Controllers\" />
+    <Folder Include="Product\Stocks\Dtos\" />
+    <Folder Include="Product\Stocks\ViewModels\" />
+    <Folder Include="Product\SubCategories\Controllers\" />
+    <Folder Include="Product\SubCategories\Dtos\" />
+    <Folder Include="Product\SubCategories\ViewModels\" />
+    <Folder Include="Purcharse\Emails\Controllers\" />
+    <Folder Include="Purcharse\Emails\Dtos\" />
+    <Folder Include="Purcharse\Emails\ViewModels\" />
+    <Folder Include="Purcharse\OrdersItems\Controllers\" />
+    <Folder Include="Purcharse\OrdersItems\Dtos\" />
+    <Folder Include="Purcharse\OrdersItems\ViewModels\" />
+    <Folder Include="Purcharse\Orders\Controllers\" />
+    <Folder Include="Purcharse\Orders\Dtos\" />
+    <Folder Include="Purcharse\Orders\ViewModels\" />
+    <Folder Include="Purcharse\Status\Controllers\" />
+    <Folder Include="Purcharse\Status\Dtos\" />
+    <Folder Include="Purcharse\Status\ViewModels\" />
   </ItemGroup>
 
 </Project>

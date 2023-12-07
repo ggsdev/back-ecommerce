@@ -7,4 +7,49 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\E-Commerce.Common\E-Commerce.Common.csproj" />
+    <ProjectReference Include="..\E-Commerce.DTOs\E-Commerce.DTOs.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ControlAccess\Sessions\Entities\" />
+    <Folder Include="ControlAccess\Sessions\Interfaces\" />
+    <Folder Include="ControlAccess\Sessions\Services\" />
+    <Folder Include="Product\Categories\Entities\" />
+    <Folder Include="Product\Categories\Interfaces\" />
+    <Folder Include="Product\Categories\Services\" />
+    <Folder Include="Product\Items\Entities\" />
+    <Folder Include="Product\Items\Interfaces\" />
+    <Folder Include="Product\Items\Services\" />
+    <Folder Include="Product\Ratings\Entities\" />
+    <Folder Include="Product\Ratings\Interfaces\" />
+    <Folder Include="Product\Ratings\Services\" />
+    <Folder Include="Product\Stocks\Entities\" />
+    <Folder Include="Product\Stocks\Interfaces\" />
+    <Folder Include="Product\Stocks\Services\" />
+    <Folder Include="Product\SubCategories\Entities\" />
+    <Folder Include="Product\SubCategories\Interfaces\" />
+    <Folder Include="Product\SubCategories\Services\" />
+    <Folder Include="Purcharse\Emails\Entities\" />
+    <Folder Include="Purcharse\Emails\Interfaces\" />
+    <Folder Include="Purcharse\Emails\Services\" />
+    <Folder Include="Purcharse\OrdersItems\Entities\" />
+    <Folder Include="Purcharse\OrdersItems\Interfaces\" />
+    <Folder Include="Purcharse\OrdersItems\Services\" />
+    <Folder Include="Purcharse\Orders\Entities\" />
+    <Folder Include="Purcharse\Orders\Interfaces\" />
+    <Folder Include="Purcharse\Orders\Services\" />
+    <Folder Include="Payment\" />
+    <Folder Include="Purcharse\Status\Entities\" />
+    <Folder Include="Purcharse\Status\Interfaces\" />
+    <Folder Include="Purcharse\Status\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.8.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+
 </Project>
