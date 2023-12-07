@@ -3,15 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce.Infra.Data
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<T>(DataContext context) : IBaseRepository<T> where T : class
     {
-        private readonly DataContext _context;
-
-
-        public BaseRepository(DataContext context)
-        {
-            _context = context;
-        }
+        private readonly DataContext _context = context;
 
         public async Task Add(T entity)
         {

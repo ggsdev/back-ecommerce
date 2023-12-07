@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce.Infra.Data.ControlAccess.Infos.Repositories
 {
-    internal class InfoRepository(DataContext context) : BaseRepository<Info>, IInfoRepository
+    internal class InfoRepository(DataContext context) : BaseRepository<Info>(context), IInfoRepository
     {
         private readonly DataContext _context = context;
 
