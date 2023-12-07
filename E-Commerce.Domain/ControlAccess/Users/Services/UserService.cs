@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using E_Commerce.Domain.ControlAccess.Infos.Entities;
 using E_Commerce.Domain.ControlAccess.Infos.Interfaces;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
@@ -16,15 +15,6 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
 
         public async Task<UserDto> Create(UserCreateViewModel body)
         {
-            var createdAddress = new Address
-            {
-                City = body.Address.City,
-                Number = body.Address.Number,
-                State = body.Address.State,
-                Street = body.Address.Street,
-                ZipCode = body.Address.ZipCode
-            };
-
             var createdInfo = await _infoService
                 .Create(body.Info, body.Address);
 
