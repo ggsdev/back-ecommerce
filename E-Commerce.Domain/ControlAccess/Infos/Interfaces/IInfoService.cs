@@ -5,6 +5,6 @@ namespace E_Commerce.Domain.ControlAccess.Infos.Interfaces
 {
     internal interface IInfoService
     {
-        Task<Info> Create(InfoViewModel infoViewModel, Address address);
+        Task<Info> Create(InfoViewModel infoViewModel, AddressViewModel addressViewModel);
     }
 }

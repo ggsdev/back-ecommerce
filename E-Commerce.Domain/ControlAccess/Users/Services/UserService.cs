@@ -25,7 +25,8 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
                 ZipCode = body.Address.ZipCode
             };
 
-            var createdInfo = await _infoService.Create(body.Info, createdAddress);
+            var createdInfo = await _infoService
+                .Create(body.Info, body.Address);
 
             var createdUser = new User
             {
