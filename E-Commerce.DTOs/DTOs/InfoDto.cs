@@ -1,9 +1,6 @@
-﻿namespace E_Commerce.DTOs.DTOs
+﻿using E_Commerce.Common;
+
+namespace E_Commerce.DTOs.DTOs
 {
-    public class InfoDto
-    {
-        public string Cellphone { get; private set; } = null!;
-        public string Email { get; private set; } = null!;
-        public AddressDto Address { get; set; } = null!;
-    }
+    public record InfoDto(long Id, DateTime CreatedAt, DateTime? UpdatedAt, string Cellphone, string Email, AddressDto Address) : BaseDto(Id, CreatedAt, UpdatedAt);
 }

@@ -13,8 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ControlAccess\Sessions\Mappings\" />
-    <Folder Include="ControlAccess\Sessions\Repositories\" />
     <Folder Include="Payment\Categories\Mappings\" />
     <Folder Include="Payment\Categories\Repositories\" />
     <Folder Include="Payment\Items\Mappings\" />
@@ -45,6 +43,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

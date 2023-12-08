@@ -3,7 +3,6 @@ using E_Commerce.Domain.ControlAccess.Infos.Interfaces;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
 using E_Commerce.Infra.Data.ControlAccess.Infos.Repositories;
 using E_Commerce.Infra.Data.ControlAccess.Users.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,11 +12,9 @@ namespace E_Commerce.Infra.Data
     {
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DataContext>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("dbConnection")));
+            services.AddDbContext<DataContext>();
 
             RegisterRepositories(services);
-
         }
 
         static void RegisterRepositories(IServiceCollection services)

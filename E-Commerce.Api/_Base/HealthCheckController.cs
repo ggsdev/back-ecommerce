@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce.Api
+namespace E_Commerce.Api._Base
 {
     [Route("/")]
     [ApiController]

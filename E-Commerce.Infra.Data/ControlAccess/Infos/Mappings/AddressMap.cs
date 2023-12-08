@@ -1,5 +1,4 @@
 ﻿using E_Commerce.Common;
-using E_Commerce.Common.Utils;
 using E_Commerce.Domain.ControlAccess.Infos.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,6 +9,8 @@ namespace E_Commerce.Infra.Data.ControlAccess.Infos.Mappings
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
+            builder.ToTable(GlobalUtils.FormatTableName(Constants.PREFIXCONTROLACCESS, nameof(Address)));
+
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
@@ -42,8 +43,6 @@ namespace E_Commerce.Infra.Data.ControlAccess.Infos.Mappings
             builder.Property(x => x.ZipCode)
                 .HasColumnType("char")
                 .HasMaxLength(9);
-
-            builder.ToTable(TableNameHelper.Format(Constants.PREFIXCONTROLACCESS, nameof(Address)));
         }
     }
 }

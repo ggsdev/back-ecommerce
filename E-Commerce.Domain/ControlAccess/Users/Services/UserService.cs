@@ -1,29 +1,26 @@
 ﻿using AutoMapper;
+using E_Commerce.Common;
 using E_Commerce.Domain.ControlAccess.Infos.Interfaces;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
 using E_Commerce.DTOs.DTOs;
-using E_Commerce.DTOs.ViewModels;
+using E_Commerce.DTOs.ViewModels.Users;
 
 namespace E_Commerce.Domain.ControlAccess.Users.Services
 {
-    internal class UserService(IUserRepository repository, IMapper mapper, IInfoService infoService) : IUserService
+    internal class UserService(IUserRepository repository, IMapper mapper, IInfoService infoService, IUserFactory factory) : IUserService
     {
         private readonly IUserRepository _repository = repository;
+        private readonly IUserFactory _factory = factory;
         private readonly IInfoService _infoService = infoService;
         private readonly IMapper _mapper = mapper;
 
-        public async Task<UserDto> Create(UserCreateViewModel body)
+        public async Task<UserDto> CreateUser(CreateUserViewModel body)
         {
             var createdInfo = await _infoService
-                .Create(body.Info, body.Address);
+                .CreateInfo(body.Info, body.Address);
 
-            var createdUser = new User
-            {
-                Name = body.Name,
-                Password = body.Password,
-                Info = createdInfo,
-            };
+            var createdUser = _factory.Create(body, createdInfo);
 
             await _repository.Add(createdUser);
 
@@ -34,28 +31,68 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
             return userDto;
         }
 
-        public Task Delete(long id)
+        public async Task DeleteUser(long id, User loggedUser)
         {
-            throw new NotImplementedException();
+            if (loggedUser.IsAdmin is false)
+                throw new Exception("You don't have permission to access this user");
+
+            var userToBeDeleted = await _repository.GetByIdClean(id)
+                ?? throw new Exception("User not found");
+
+            _repository.Delete(userToBeDeleted);
+
+            await _repository.Save();
         }
 
-        public async Task<List<UserDto>> GetAll()
+        public async Task<PaginatedDataDTO<UserDto>> GetAllUsers(FilterQuery queryParams, string requestUrl, User loggedUser)
         {
-            var users = await _repository.GetAll();
+            if (loggedUser.IsAdmin is false)
+                throw new Exception("You don't have permission to access users");
+
+            var totalCount = await _repository.Count();
+
+            var users = await _repository.GetAll(queryParams);
 
             var usersDto = _mapper.Map<List<UserDto>>(users);
 
-            return usersDto;
+            var paginatedData = APIGetReturn.Paginate(usersDto, queryParams.PageNumber, queryParams.PageSize, totalCount, requestUrl);
+
+            return paginatedData;
         }
 
-        public Task<UserDto> GetById(long id)
+        public async Task<UserDto> GetUserById(long id, User loggedUser)
         {
-            throw new NotImplementedException();
+            if (loggedUser.IsAdmin is false && loggedUser.Id != id)
+                throw new Exception("You don't have permission to access this user");
+
+            var user = await _repository.GetById(id)
+                ?? throw new Exception("User not found");
+
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return userDto;
         }
 
-        public Task Update(UserDto user)
+        public async Task<UserDto> UpdateUser(UpdateUserViewModel body, long id, User loggedUser)
         {
-            throw new NotImplementedException();
+            if (loggedUser.IsAdmin is false && loggedUser.Id != id)
+                throw new Exception("You don't have permission to access this user");
+
+            var user = await _repository.GetById(id)
+               ?? throw new Exception("User not found");
+
+            var updatedUser = _factory.Update(user, body);
+
+            await _infoService
+                .UpdateInfo(body.Info, user.Info);
+
+            _repository.Update(updatedUser);
+
+            await _repository.Save();
+
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return userDto;
         }
     }
 }

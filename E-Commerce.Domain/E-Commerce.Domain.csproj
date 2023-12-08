@@ -13,9 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ControlAccess\Sessions\Entities\" />
-    <Folder Include="ControlAccess\Sessions\Interfaces\" />
-    <Folder Include="ControlAccess\Sessions\Services\" />
     <Folder Include="Product\Categories\Entities\" />
     <Folder Include="Product\Categories\Interfaces\" />
     <Folder Include="Product\Categories\Services\" />
@@ -47,9 +44,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="FluentValidation" Version="11.8.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
   </ItemGroup>
 
 </Project>

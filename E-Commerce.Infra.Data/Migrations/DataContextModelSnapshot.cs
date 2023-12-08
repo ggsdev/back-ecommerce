@@ -43,19 +43,12 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Number")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar");
 
                     b.Property<string>("Reference")
-                        .IsRequired()
                         .HasMaxLength(120)
                         .HasColumnType("varchar");
 
@@ -101,16 +94,10 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(120)
                         .HasColumnType("varchar");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -120,7 +107,49 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.HasIndex("AddressId")
                         .IsUnique();
 
+                    b.HasIndex("Cellphone")
+                        .IsUnique();
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("CA.Infos", (string)null);
+                });
+
+            modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Sessions.Entities.Session", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(400)
+                        .HasColumnType("varchar");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("CA.Sessions", (string)null);
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Users.Entities.User", b =>
@@ -131,20 +160,14 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<short>("Age")
-                        .HasColumnType("smallint");
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<long>("InfoId")
                         .HasColumnType("bigint");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
@@ -186,6 +209,17 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.Navigation("Address");
                 });
 
+            modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Sessions.Entities.Session", b =>
+                {
+                    b.HasOne("E_Commerce.Domain.ControlAccess.Users.Entities.User", "User")
+                        .WithOne("Session")
+                        .HasForeignKey("E_Commerce.Domain.ControlAccess.Sessions.Entities.Session", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Users.Entities.User", b =>
                 {
                     b.HasOne("E_Commerce.Domain.ControlAccess.Infos.Entities.Info", "Info")
@@ -201,6 +235,11 @@ namespace E_Commerce.Infra.Data.Migrations
                 {
                     b.Navigation("User")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Users.Entities.User", b =>
+                {
+                    b.Navigation("Session");
                 });
 #pragma warning restore 612, 618
         }

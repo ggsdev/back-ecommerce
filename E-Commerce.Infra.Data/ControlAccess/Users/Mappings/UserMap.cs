@@ -1,5 +1,4 @@
 ﻿using E_Commerce.Common;
-using E_Commerce.Common.Utils;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,6 +9,8 @@ namespace E_Commerce.Infra.Data.ControlAccess.Users.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.ToTable(GlobalUtils.FormatTableName(Constants.PREFIXCONTROLACCESS, nameof(User)));
+
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
@@ -35,8 +36,6 @@ namespace E_Commerce.Infra.Data.ControlAccess.Users.Mappings
                 .WithOne(i => i.User)
                 .HasForeignKey<User>(x => x.InfoId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.ToTable(TableNameHelper.Format(Constants.PREFIXCONTROLACCESS, nameof(User)));
         }
     }
 }

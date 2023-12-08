@@ -1,4 +1,5 @@
 using AutoMapper;
+using E_Commerce.Api._Base;
 using E_Commerce.Common;
 using E_Commerce.Infra.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,6 +23,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseExceptionHandler();
+
 app.Run();
 
 static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
@@ -35,8 +38,21 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
     });
 
     services.AddEndpointsApiExplorer();
-
     services.AddSwaggerGen();
+
+    ConfigureJwtAuthentication(services, Configuration.SecretKey);
+
+    services.AddCors(options =>
+    {
+        options.AddPolicy("CorsPolicy",
+                 builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+    });
+
+    services.AddExceptionHandler<GlobalErrorHandler>();
+    services.AddProblemDetails();
 
     var mapperConfig = new MapperConfiguration(cfg =>
     {
@@ -45,13 +61,11 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
 
     services.AddSingleton(mapperConfig.CreateMapper());
 
-    //Infra.Data Startup
+    //Infra.Data Startup Services
     E_Commerce.Infra.Data.Startup.ConfigureServices(services, configuration);
 
-    //Domain Startup
-    E_Commerce.Domain.Startup.RegisterServices(services);
-
-    ConfigureJwtAuthentication(services, Configuration.SecretKey);
+    //Domain Startup Services
+    E_Commerce.Domain.Startup.ConfigureServices(services);
 }
 
 static void ConfigureJwtAuthentication(IServiceCollection services, string secretKey)

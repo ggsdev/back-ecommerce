@@ -16,9 +16,17 @@ namespace E_Commerce.Infra.Data.ControlAccess.Infos.Repositories
                     x.Id,
                     x.Info.Email,
                     x.Info.Cellphone,
+                    x.CreatedAt,
+                    x.UpdatedAt
                 })
                 .Where(user => (EF.Functions.Like(user.Email, email) || EF.Functions.Like(user.Cellphone, cellphone)) && user.Id != id)
                .AnyAsync();
+        }
+
+        public async Task<Address?> GetAddressById(long addressId)
+        {
+            return await _context.Addresses
+                .FirstOrDefaultAsync(x => x.Id == addressId);
         }
     }
 }

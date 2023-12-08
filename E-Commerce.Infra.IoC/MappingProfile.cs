@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using E_Commerce.Domain.ControlAccess.Infos.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.DTOs.DTOs;
 
@@ -9,6 +10,8 @@ namespace E_Commerce.Infra.IoC
         public MappingProfile()
         {
             CreateMap<User, UserDto>();
+            CreateMap<Info, InfoDto>();
+            CreateMap<Address, AddressDto>();
         }
     }
 }

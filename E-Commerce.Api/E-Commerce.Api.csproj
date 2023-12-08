@@ -21,11 +21,7 @@
 
   <ItemGroup>
     <Folder Include="ControlAccess\Infos\Controllers\" />
-    <Folder Include="ControlAccess\Infos\ViewModels\" />
-    <Folder Include="ControlAccess\Sessions\Controllers\" />
-    <Folder Include="ControlAccess\Sessions\Dtos\" />
-    <Folder Include="ControlAccess\Sessions\ViewModels\" />
-    <Folder Include="ControlAccess\Users\ViewModels\" />
+    <Folder Include="_Base\Middlewares\" />
     <Folder Include="Payment\" />
     <Folder Include="Product\Categories\Controllers\" />
     <Folder Include="Product\Categories\Dtos\" />
