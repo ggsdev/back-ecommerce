@@ -66,7 +66,8 @@ namespace E_Commerce.Infra.Data.ControlAccess.Users.Repositories
 
         public async Task<User?> GetById(long id)
         {
-            return await _context.Users
+            return await _context
+                .Users
                 .Include(x => x.Info)
                     .ThenInclude(x => x.Address)
                 .Where(x => x.Id.Equals(id))
@@ -90,7 +91,9 @@ namespace E_Commerce.Infra.Data.ControlAccess.Users.Repositories
 
         public async Task<User?> GetByEmail(string email)
         {
-            return await _context.Users
+            return await _context
+                .Users
+                .Include(x => x.Session)
                 .Include(x => x.Info)
                 .Where(x => x.Info.Email.Equals(email))
                 .FirstOrDefaultAsync();

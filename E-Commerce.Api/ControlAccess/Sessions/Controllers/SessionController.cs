@@ -1,5 +1,6 @@
 ﻿using E_Commerce.Domain.ControlAccess.Sessions.Interfaces;
 using E_Commerce.DTOs.ViewModels.Sessions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.Api.ControlAccess.Sessions.Controllers
@@ -11,6 +12,7 @@ namespace E_Commerce.Api.ControlAccess.Sessions.Controllers
         private readonly ISessionService _service = service;
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post(CreateSessionViewModel body)
         {
             var data = await _service.CreateSession(body);

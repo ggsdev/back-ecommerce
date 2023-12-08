@@ -1,6 +1,8 @@
 ﻿using E_Commerce.Domain.ControlAccess.Infos.Factories;
 using E_Commerce.Domain.ControlAccess.Infos.Interfaces;
 using E_Commerce.Domain.ControlAccess.Infos.Services;
+using E_Commerce.Domain.ControlAccess.Sessions.Interfaces;
+using E_Commerce.Domain.ControlAccess.Sessions.Services;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Factories;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
@@ -24,6 +26,7 @@ namespace E_Commerce.Domain
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IInfoService, InfoService>();
+            services.AddScoped<ISessionService, SessionService>();
         }
 
         public static void RegisterFactories(IServiceCollection services)

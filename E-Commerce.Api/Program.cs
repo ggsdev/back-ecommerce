@@ -1,5 +1,6 @@
 using AutoMapper;
-using E_Commerce.Api._Base;
+using E_Commerce.Api._Base.Filters;
+using E_Commerce.Api._Base.Handlers;
 using E_Commerce.Common;
 using E_Commerce.Infra.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -53,6 +54,8 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
 
     services.AddExceptionHandler<GlobalErrorHandler>();
     services.AddProblemDetails();
+
+    services.AddScoped<AuthenticationFilter>();
 
     var mapperConfig = new MapperConfiguration(cfg =>
     {

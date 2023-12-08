@@ -1,7 +1,9 @@
 ﻿using E_Commerce.Common;
 using E_Commerce.Domain.ControlAccess.Infos.Interfaces;
+using E_Commerce.Domain.ControlAccess.Sessions.Interfaces;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
 using E_Commerce.Infra.Data.ControlAccess.Infos.Repositories;
+using E_Commerce.Infra.Data.ControlAccess.Sessions.Repositories;
 using E_Commerce.Infra.Data.ControlAccess.Users.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,7 @@ namespace E_Commerce.Infra.Data
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IInfoRepository, InfoRepository>();
+            services.AddScoped<ISessionRepository, SessionRepository>();
         }
     }
 }

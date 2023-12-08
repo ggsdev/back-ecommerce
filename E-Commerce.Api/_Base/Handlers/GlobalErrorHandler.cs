@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce.Api._Base
+namespace E_Commerce.Api._Base.Handlers
 {
     internal sealed class GlobalErrorHandler(ILogger<GlobalErrorHandler> logger) : IExceptionHandler
     {

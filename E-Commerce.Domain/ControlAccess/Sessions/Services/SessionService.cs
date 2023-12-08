@@ -27,6 +27,16 @@ namespace E_Commerce.Domain.ControlAccess.Sessions.Services
             if (isPasswordValid is false)
                 throw new Exception("Invalid email or password");
 
+            if (userByEmail.Session is not null && userByEmail.Session.ExpirationDate > DateTime.Now)
+                return new SessionDto
+                {
+                    Token = userByEmail.Session.Token,
+                    ExpirationDate = userByEmail.Session.ExpirationDate
+                };
+
+            if (userByEmail.Session is not null)
+                _repository.Delete(userByEmail.Session);
+
             var tokenDto = GenerateJwtToken(userByEmail);
 
             var createdSession = new Session

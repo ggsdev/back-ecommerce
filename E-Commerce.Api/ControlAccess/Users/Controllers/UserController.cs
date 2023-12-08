@@ -3,6 +3,7 @@ using E_Commerce.Common;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
 using E_Commerce.DTOs.ViewModels.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,6 +38,7 @@ namespace E_Commerce.Api.ControlAccess.Users.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post(CreateUserViewModel body)
         {
             var data = await _service.CreateUser(body);
