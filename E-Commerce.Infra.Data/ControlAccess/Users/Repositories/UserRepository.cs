@@ -95,7 +95,7 @@ namespace E_Commerce.Infra.Data.ControlAccess.Users.Repositories
                 .Users
                 .Include(x => x.Session)
                 .Include(x => x.Info)
-                .Where(x => x.Info.Email.Equals(email))
+                .Where(user => EF.Functions.Like(user.Info.Email, email))
                 .FirstOrDefaultAsync();
         }
     }

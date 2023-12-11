@@ -13,17 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Payment\Categories\Mappings\" />
-    <Folder Include="Payment\Categories\Repositories\" />
-    <Folder Include="Payment\Items\Mappings\" />
-    <Folder Include="Payment\Items\Repositories\" />
-    <Folder Include="Payment\Ratings\Mappings\" />
-    <Folder Include="Payment\Ratings\Repositories\" />
-    <Folder Include="Payment\Stocks\Mappings\" />
-    <Folder Include="Payment\Stocks\Repositories\" />
-    <Folder Include="Payment\SubCategories\Mappings\" />
-    <Folder Include="Payment\SubCategories\Repositories\" />
-    <Folder Include="Product\" />
+    <Folder Include="Product\Ratings\Mappings\" />
+    <Folder Include="Product\Ratings\Repositories\" />
+    <Folder Include="Product\Stocks\Mappings\" />
+    <Folder Include="Product\Stocks\Repositories\" />
+    <Folder Include="Payment\" />
     <Folder Include="Purcharse\Emails\Mappings\" />
     <Folder Include="Purcharse\Emails\Repositories\" />
     <Folder Include="Purcharse\OrdersItems\Mappings\" />

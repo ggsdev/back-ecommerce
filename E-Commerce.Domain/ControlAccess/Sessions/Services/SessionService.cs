@@ -1,10 +1,11 @@
-﻿using E_Commerce.Common;
+﻿using AutoMapper;
+using E_Commerce.Common;
 using E_Commerce.Domain.ControlAccess.Sessions.Entities;
 using E_Commerce.Domain.ControlAccess.Sessions.Interfaces;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
 using E_Commerce.DTOs.DTOs;
-using E_Commerce.DTOs.ViewModels.Sessions;
+using E_Commerce.DTOs.ViewModels.ControlAccess;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -12,10 +13,11 @@ using System.Text;
 
 namespace E_Commerce.Domain.ControlAccess.Sessions.Services
 {
-    internal class SessionService(ISessionRepository sessionRepository, IUserRepository userRepository) : ISessionService
+    internal class SessionService(ISessionRepository sessionRepository, IUserRepository userRepository, IMapper mapper) : ISessionService
     {
         private readonly ISessionRepository _repository = sessionRepository;
         private readonly IUserRepository _userRepository = userRepository;
+        private readonly IMapper _mapper = mapper;
 
         public async Task<SessionDto> CreateSession(CreateSessionViewModel body)
         {
@@ -28,11 +30,11 @@ namespace E_Commerce.Domain.ControlAccess.Sessions.Services
                 throw new Exception("Invalid email or password");
 
             if (userByEmail.Session is not null && userByEmail.Session.ExpirationDate > DateTime.Now)
-                return new SessionDto
-                {
-                    Token = userByEmail.Session.Token,
-                    ExpirationDate = userByEmail.Session.ExpirationDate
-                };
+            {
+                var sessionDto = _mapper.Map<SessionDto>(userByEmail.Session);
+
+                return sessionDto;
+            }
 
             if (userByEmail.Session is not null)
                 _repository.Delete(userByEmail.Session);
@@ -53,16 +55,6 @@ namespace E_Commerce.Domain.ControlAccess.Sessions.Services
             return tokenDto;
         }
 
-        public Task DeleteSession(string token)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<SessionDto> GetSessionByToken(string token)
-        {
-            throw new NotImplementedException();
-        }
-
         private static SessionDto GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -72,7 +64,7 @@ namespace E_Commerce.Domain.ControlAccess.Sessions.Services
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                new Claim(ClaimTypes.Name, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -81,10 +73,10 @@ namespace E_Commerce.Domain.ControlAccess.Sessions.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return new SessionDto
-            {
-                Token = tokenHandler.WriteToken(token),
-                ExpirationDate = token.ValidTo
-            };
+            (
+                tokenHandler.WriteToken(token),
+                token.ValidTo
+            );
         }
     }
 }

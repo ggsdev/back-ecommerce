@@ -20,36 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ControlAccess\Infos\Controllers\" />
     <Folder Include="_Base\Middlewares\" />
-    <Folder Include="Payment\" />
-    <Folder Include="Product\Categories\Controllers\" />
-    <Folder Include="Product\Categories\Dtos\" />
-    <Folder Include="Product\Categories\ViewModels\" />
-    <Folder Include="Product\Items\Controllers\" />
-    <Folder Include="Product\Items\Dtos\" />
-    <Folder Include="Product\Items\ViewModels\" />
-    <Folder Include="Product\Ratings\Controllers\" />
-    <Folder Include="Product\Ratings\Dtos\" />
-    <Folder Include="Product\Ratings\ViewModels\" />
-    <Folder Include="Product\Stocks\Controllers\" />
-    <Folder Include="Product\Stocks\Dtos\" />
-    <Folder Include="Product\Stocks\ViewModels\" />
-    <Folder Include="Product\SubCategories\Controllers\" />
-    <Folder Include="Product\SubCategories\Dtos\" />
-    <Folder Include="Product\SubCategories\ViewModels\" />
-    <Folder Include="Purcharse\Emails\Controllers\" />
-    <Folder Include="Purcharse\Emails\Dtos\" />
-    <Folder Include="Purcharse\Emails\ViewModels\" />
-    <Folder Include="Purcharse\OrdersItems\Controllers\" />
-    <Folder Include="Purcharse\OrdersItems\Dtos\" />
-    <Folder Include="Purcharse\OrdersItems\ViewModels\" />
-    <Folder Include="Purcharse\Orders\Controllers\" />
-    <Folder Include="Purcharse\Orders\Dtos\" />
-    <Folder Include="Purcharse\Orders\ViewModels\" />
-    <Folder Include="Purcharse\Status\Controllers\" />
-    <Folder Include="Purcharse\Status\Dtos\" />
-    <Folder Include="Purcharse\Status\ViewModels\" />
   </ItemGroup>
 
 </Project>

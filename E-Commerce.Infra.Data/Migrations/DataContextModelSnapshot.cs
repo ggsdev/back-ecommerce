@@ -72,7 +72,7 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CA.Addresss", (string)null);
+                    b.ToTable("ControlAccess.Addresss", (string)null);
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Infos.Entities.Info", b =>
@@ -113,7 +113,7 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("CA.Infos", (string)null);
+                    b.ToTable("ControlAccess.Infos", (string)null);
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Sessions.Entities.Session", b =>
@@ -149,7 +149,7 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("CA.Sessions", (string)null);
+                    b.ToTable("ControlAccess.Sessions", (string)null);
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Users.Entities.User", b =>
@@ -195,7 +195,153 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.HasIndex("InfoId")
                         .IsUnique();
 
-                    b.ToTable("CA.Users", (string)null);
+                    b.ToTable("ControlAccess.Users", (string)null);
+                });
+
+            modelBuilder.Entity("E_Commerce.Domain.Product.Categories.Entities.Category", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("varchar");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Product.Categorys", (string)null);
+                });
+
+            modelBuilder.Entity("E_Commerce.Domain.Product.Images.Entites.Image", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<byte[]>("ImageContent")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<bool>("IsShowCase")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("ItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("varchar");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("Product.Images", (string)null);
+                });
+
+            modelBuilder.Entity("E_Commerce.Domain.Product.Items.Entities.Item", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("varchar");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal");
+
+                    b.Property<long>("SubCategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("SubCategoryId");
+
+                    b.ToTable("Product.Items", (string)null);
+                });
+
+            modelBuilder.Entity("E_Commerce.Domain.Product.SubCategories.Entities.SubCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("varchar");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Product.SubCategorys", (string)null);
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Infos.Entities.Info", b =>
@@ -231,6 +377,39 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.Navigation("Info");
                 });
 
+            modelBuilder.Entity("E_Commerce.Domain.Product.Images.Entites.Image", b =>
+                {
+                    b.HasOne("E_Commerce.Domain.Product.Items.Entities.Item", "Item")
+                        .WithMany("Images")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+                });
+
+            modelBuilder.Entity("E_Commerce.Domain.Product.Items.Entities.Item", b =>
+                {
+                    b.HasOne("E_Commerce.Domain.Product.SubCategories.Entities.SubCategory", "SubCategory")
+                        .WithMany()
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SubCategory");
+                });
+
+            modelBuilder.Entity("E_Commerce.Domain.Product.SubCategories.Entities.SubCategory", b =>
+                {
+                    b.HasOne("E_Commerce.Domain.Product.Categories.Entities.Category", "Category")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Infos.Entities.Info", b =>
                 {
                     b.Navigation("User")
@@ -240,6 +419,16 @@ namespace E_Commerce.Infra.Data.Migrations
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Users.Entities.User", b =>
                 {
                     b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("E_Commerce.Domain.Product.Categories.Entities.Category", b =>
+                {
+                    b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("E_Commerce.Domain.Product.Items.Entities.Item", b =>
+                {
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

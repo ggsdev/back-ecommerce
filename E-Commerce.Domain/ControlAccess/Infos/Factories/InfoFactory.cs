@@ -1,6 +1,6 @@
 ﻿using E_Commerce.Domain.ControlAccess.Infos.Entities;
 using E_Commerce.Domain.ControlAccess.Infos.Interfaces;
-using E_Commerce.DTOs.ViewModels.Infos;
+using E_Commerce.DTOs.ViewModels.ControlAccess;
 
 namespace E_Commerce.Domain.ControlAccess.Infos.Factories
 {
@@ -27,7 +27,7 @@ namespace E_Commerce.Domain.ControlAccess.Infos.Factories
             };
         }
 
-        public void UpdateAddress(Address address, CreateUpdateAddressViewModel addressViewModel)
+        public Address UpdateAddress(Address address, CreateUpdateAddressViewModel addressViewModel)
         {
             address.Street = addressViewModel.Street;
             address.Number = addressViewModel.Number;
@@ -36,12 +36,16 @@ namespace E_Commerce.Domain.ControlAccess.Infos.Factories
             address.State = addressViewModel.State;
             address.ZipCode = addressViewModel.ZipCode;
             address.Reference = addressViewModel.Reference;
+
+            return address;
         }
 
-        public void UpdateInfo(Info info, CreateUpdateInfoViewModel infoViewModel)
+        public Info UpdateInfo(Info info, CreateUpdateInfoViewModel infoViewModel)
         {
             info.Cellphone = infoViewModel.Cellphone;
             info.Email = infoViewModel.Email;
+
+            return info;
         }
     }
 }

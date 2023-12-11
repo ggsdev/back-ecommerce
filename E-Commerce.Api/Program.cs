@@ -1,6 +1,7 @@
 using AutoMapper;
 using E_Commerce.Api._Base.Filters;
 using E_Commerce.Api._Base.Handlers;
+using E_Commerce.Api._Base.Middlewares;
 using E_Commerce.Common;
 using E_Commerce.Infra.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,6 +20,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<AuthMiddleware>();
+app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -65,7 +71,7 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
     services.AddSingleton(mapperConfig.CreateMapper());
 
     //Infra.Data Startup Services
-    E_Commerce.Infra.Data.Startup.ConfigureServices(services, configuration);
+    E_Commerce.Infra.Data.Startup.ConfigureServices(services);
 
     //Domain Startup Services
     E_Commerce.Domain.Startup.ConfigureServices(services);

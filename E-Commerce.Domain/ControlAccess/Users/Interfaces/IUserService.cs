@@ -1,7 +1,7 @@
 ﻿using E_Commerce.Common;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.DTOs.DTOs;
-using E_Commerce.DTOs.ViewModels.Users;
+using E_Commerce.DTOs.ViewModels.ControlAccess;
 
 namespace E_Commerce.Domain.ControlAccess.Users.Interfaces
 {

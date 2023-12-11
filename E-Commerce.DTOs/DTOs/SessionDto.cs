@@ -1,8 +1,4 @@
 ﻿namespace E_Commerce.DTOs.DTOs
 {
-    public class SessionDto
-    {
-        public string Token { get; set; } = null!;
-        public DateTime ExpirationDate { get; set; }
-    }
+    public record SessionDto(string Token, DateTime ExpirationDate);
 }

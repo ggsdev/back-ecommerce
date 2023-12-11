@@ -2,7 +2,7 @@
 using E_Commerce.Domain.ControlAccess.Infos.Entities;
 using E_Commerce.Domain.ControlAccess.Infos.Interfaces;
 using E_Commerce.DTOs.DTOs;
-using E_Commerce.DTOs.ViewModels.Infos;
+using E_Commerce.DTOs.ViewModels.ControlAccess;
 
 namespace E_Commerce.Domain.ControlAccess.Infos.Services
 {
@@ -35,16 +35,16 @@ namespace E_Commerce.Domain.ControlAccess.Infos.Services
             var addressInDatabase = await _repository.GetAddressById(addressId)
                 ?? throw new Exception("Address not found");
 
-            _factory.UpdateAddress(addressInDatabase, addressViewModel);
+            var updatedAddress = _factory.UpdateAddress(addressInDatabase, addressViewModel);
 
             await _repository.Save();
 
-            var addressDto = _mapper.Map<AddressDto>(addressInDatabase);
+            var addressDto = _mapper.Map<AddressDto>(updatedAddress);
 
             return addressDto;
         }
 
-        public async Task UpdateInfo(CreateUpdateInfoViewModel infoViewModel, Info userInfo)
+        public async Task<InfoDto> UpdateInfo(CreateUpdateInfoViewModel infoViewModel, Info userInfo)
         {
             var isInfoAlreadyRegistered = await _repository
                .AnyByEmailOrCellphone(infoViewModel.Email, infoViewModel.Cellphone, userInfo.Id);
@@ -52,7 +52,13 @@ namespace E_Commerce.Domain.ControlAccess.Infos.Services
             if (isInfoAlreadyRegistered)
                 throw new Exception("Info already registered");
 
-            _factory.UpdateInfo(userInfo, infoViewModel);
+            var updatedInfo = _factory.UpdateInfo(userInfo, infoViewModel);
+
+            await _repository.Save();
+
+            var infoDto = _mapper.Map<InfoDto>(updatedInfo);
+
+            return infoDto;
         }
     }
 }

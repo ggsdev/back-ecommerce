@@ -13,21 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Product\Categories\Entities\" />
-    <Folder Include="Product\Categories\Interfaces\" />
-    <Folder Include="Product\Categories\Services\" />
-    <Folder Include="Product\Items\Entities\" />
-    <Folder Include="Product\Items\Interfaces\" />
-    <Folder Include="Product\Items\Services\" />
     <Folder Include="Product\Ratings\Entities\" />
     <Folder Include="Product\Ratings\Interfaces\" />
     <Folder Include="Product\Ratings\Services\" />
     <Folder Include="Product\Stocks\Entities\" />
     <Folder Include="Product\Stocks\Interfaces\" />
     <Folder Include="Product\Stocks\Services\" />
-    <Folder Include="Product\SubCategories\Entities\" />
-    <Folder Include="Product\SubCategories\Interfaces\" />
-    <Folder Include="Product\SubCategories\Services\" />
     <Folder Include="Purcharse\Emails\Entities\" />
     <Folder Include="Purcharse\Emails\Interfaces\" />
     <Folder Include="Purcharse\Emails\Services\" />
