@@ -2,16 +2,17 @@
 using E_Commerce.Common;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Images.Interfaces;
-using E_Commerce.Domain.Product.Items.Entities;
 using E_Commerce.Domain.Product.Items.Interfaces;
+using E_Commerce.Domain.Product.SubCategories.Interfaces;
 using E_Commerce.DTOs.DTOs;
 using E_Commerce.DTOs.ViewModels.Product;
 
 namespace E_Commerce.Domain.Product.Items.Services
 {
-    internal class ItemService(IItemRepository itemRepository, IItemFactory itemFactory, IMapper mapper, IImageService imageService) : IItemService
+    internal class ItemService(IItemRepository itemRepository, IItemFactory itemFactory, IMapper mapper, IImageService imageService, ISubCategoryRepository subCategoryRepository) : IItemService
     {
         private readonly IItemRepository _repository = itemRepository;
+        private readonly ISubCategoryRepository _subCategoryRepository = subCategoryRepository;
         private readonly IItemFactory _factory = itemFactory;
         private readonly IMapper _mapper = mapper;
         private readonly IImageService _imageService = imageService;
@@ -26,11 +27,12 @@ namespace E_Commerce.Domain.Product.Items.Services
             if (anyInDatabase)
                 throw new Exception("Already registered in database");
 
-            var createdItem = new Item();
+            var subCategoryInDatabase = await _subCategoryRepository.GetByIdClean(viewModel.SubCategoryId!.Value)
+                ?? throw new Exception("SubCategory not found");
 
-            var images = await _imageService.CreateImages(viewModel.Images, createdItem);
+            var images = await _imageService.CreateImages(viewModel.Images);
 
-            createdItem = _factory.Create(viewModel, images);
+            var createdItem = _factory.Create(viewModel, images);
 
             await _repository.Add(createdItem);
 
@@ -66,11 +68,11 @@ namespace E_Commerce.Domain.Product.Items.Services
             return itemDto;
         }
 
-        public async Task<PaginatedDataDTO<ItemDto>> GetItems(FilterQuery queryParams, string requestUrl)
+        public async Task<PaginatedDataDTO<ItemDto>> GetItems(FilterQuery queryParams, string requestUrl, CancellationToken ct)
         {
             var totalCount = await _repository.Count();
 
-            var items = await _repository.GetAll(queryParams);
+            var items = await _repository.GetAll(queryParams, ct);
 
             var itemsDto = _mapper.Map<List<ItemDto>>(items);
 
@@ -92,7 +94,7 @@ namespace E_Commerce.Domain.Product.Items.Services
             var updatedItem = await _repository.GetById(id)
                 ?? throw new Exception("Not found");
 
-            var images = await _imageService.CreateImages(viewModel.Images, updatedItem);
+            var images = await _imageService.CreateImages(viewModel.Images);
 
             updatedItem = _factory.Update(updatedItem, viewModel, images);
 

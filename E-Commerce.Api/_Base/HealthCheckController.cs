@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.Api._Base
 {
-    [Route("/")]
+    [Route("v1/api")]
     [ApiController]
     public class HealthCheckController(DataContext dbContext) : ControllerBase
     {

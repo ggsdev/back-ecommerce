@@ -15,22 +15,23 @@ ConfigureServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
+app.UseExceptionHandler();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<AuthMiddleware>();
 app.UseRouting();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseMiddleware<AuthMiddleware>();
 
-app.UseExceptionHandler();
+app.MapControllers();
 
 app.Run();
 
@@ -42,6 +43,11 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
                         .RequireAuthenticatedUser()
                         .Build();
         config.Filters.Add(new AuthorizeFilter(policy));
+    });
+
+    services.AddStackExchangeRedisCache(options =>
+    {
+        options.Configuration = configuration.GetConnectionString("Redis");
     });
 
     services.AddEndpointsApiExplorer();
@@ -67,6 +73,7 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
     {
         cfg.AddProfile<MappingProfile>();
     });
+
 
     services.AddSingleton(mapperConfig.CreateMapper());
 

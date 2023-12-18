@@ -4,12 +4,15 @@ using E_Commerce.Domain.Product.Items.Entities;
 using E_Commerce.Domain.Product.Items.Interfaces;
 using E_Commerce.Domain.Product.SubCategories.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using System.Linq.Expressions;
 
 namespace E_Commerce.Infra.Data.Product.Items.Repositories
 {
-    internal class ItemRepository(DataContext context) : BaseRepository<Item>(context), IItemRepository
+    internal class ItemRepository(DataContext context, IDistributedCache cache) : BaseRepository<Item>(context), IItemRepository
     {
+        private readonly IDistributedCache _cache = cache;
         private readonly DataContext _context = context;
 
         public async Task<bool> AnyByName(string name, long? id = null)
@@ -19,56 +22,73 @@ namespace E_Commerce.Infra.Data.Product.Items.Repositories
                 .AnyAsync();
         }
 
-        public async Task<List<Item>> GetAll(FilterQuery paramQuery)
+        public async Task<List<Item>> GetAll(FilterQuery paramQuery, CancellationToken ct)
         {
-            IQueryable<Item> query = _context.Items;
+            var key = $"items-{paramQuery.PageNumber}-{paramQuery.PageSize}-{paramQuery.SortOrder}-{paramQuery.SortColumn}-{paramQuery.Search}";
 
-            if (!string.IsNullOrWhiteSpace(paramQuery.Search))
-            {
-                query = query.Where(item => EF.Functions.Like(item.Name, paramQuery.Search));
-            }
+            string? cachedMember = await _cache.GetStringAsync(key, ct);
 
-            if (!string.IsNullOrWhiteSpace(paramQuery.SortColumn))
+            if (string.IsNullOrEmpty(cachedMember))
             {
-                if (string.IsNullOrWhiteSpace(paramQuery.SortOrder) || paramQuery.SortOrder.Equals(Constants.ASCSORTORDER, StringComparison.OrdinalIgnoreCase))
+                IQueryable<Item> query = _context.Items;
+
+                if (!string.IsNullOrWhiteSpace(paramQuery.Search))
                 {
-                    query = query.OrderBy(GetSortProperty(paramQuery.SortColumn));
+                    query = query.Where(item => EF.Functions.Like(item.Name, paramQuery.Search));
                 }
-                else if (paramQuery.SortOrder.Equals(Constants.DESCSORTORDER, StringComparison.OrdinalIgnoreCase))
+
+                if (!string.IsNullOrWhiteSpace(paramQuery.SortColumn))
                 {
-                    query = query.OrderByDescending(GetSortProperty(paramQuery.SortColumn));
+                    if (string.IsNullOrWhiteSpace(paramQuery.SortOrder) || paramQuery.SortOrder.Equals(Constants.ASCSORTORDER, StringComparison.OrdinalIgnoreCase))
+                    {
+                        query = query.OrderBy(GetSortProperty(paramQuery.SortColumn));
+                    }
+                    else if (paramQuery.SortOrder.Equals(Constants.DESCSORTORDER, StringComparison.OrdinalIgnoreCase))
+                    {
+                        query = query.OrderByDescending(GetSortProperty(paramQuery.SortColumn));
+                    }
                 }
-            }
-            else
-            {
-                query = query.OrderBy(x => x.Id);
+                else
+                {
+                    query = query.OrderBy(x => x.Id);
+                }
+
+                var resultQuery = await query
+                    .Select(x => new Item
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        CreatedAt = x.CreatedAt,
+                        UpdatedAt = x.UpdatedAt,
+                        Description = x.Description,
+                        SubCategory = new SubCategory
+                        {
+                            Id = x.SubCategory.Id,
+                            Name = x.SubCategory.Name,
+                        },
+                        Images = x.Images.Select(i => new Image
+                        {
+                            Id = i.Id,
+                            ImageContent = i.ImageContent,
+                            Name = i.Name,
+                            IsShowCase = i.IsShowCase,
+                        }).ToList(),
+                    })
+                    .AsNoTracking()
+                    .Skip((paramQuery.PageNumber - 1) * paramQuery.PageSize)
+                    .Take(paramQuery.PageSize)
+                    .ToListAsync();
+
+                await _cache.SetStringAsync(
+                    key,
+                    JsonConvert.SerializeObject(resultQuery),
+                    ct);
+
+                return resultQuery;
             }
 
-            return await query
-                .Select(x => new Item
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    CreatedAt = x.CreatedAt,
-                    UpdatedAt = x.UpdatedAt,
-                    Description = x.Description,
-                    SubCategory = new SubCategory
-                    {
-                        Id = x.SubCategory.Id,
-                        Name = x.SubCategory.Name,
-                    },
-                    Images = x.Images.Select(i => new Image
-                    {
-                        Id = i.Id,
-                        ImageContent = i.ImageContent,
-                        Name = i.Name,
-                        IsShowCase = i.IsShowCase,
-                    }).ToList(),
-                })
-                .AsNoTracking()
-                .Skip((paramQuery.PageNumber - 1) * paramQuery.PageSize)
-                .Take(paramQuery.PageSize)
-                .ToListAsync();
+            return JsonConvert.DeserializeObject<List<Item>>(
+                cachedMember)!;
         }
 
         private static Expression<Func<Item, object>> GetSortProperty(string propertyName)

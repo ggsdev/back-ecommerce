@@ -11,6 +11,6 @@ namespace E_Commerce.Domain.Product.Items.Interfaces
         Task<ItemDto> UpdateItem(CreateUpdateItemViewModel viewModel, long id, User loggedUser);
         Task DeleteItem(long id, User loggedUser);
         Task<ItemDto?> GetItemById(long id);
-        Task<PaginatedDataDTO<ItemDto>> GetItems(FilterQuery filterQuery, string requestUrl);
+        Task<PaginatedDataDTO<ItemDto>> GetItems(FilterQuery filterQuery, string requestUrl, CancellationToken ct);
     }
 }

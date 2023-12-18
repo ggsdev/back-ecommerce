@@ -8,6 +8,6 @@ namespace E_Commerce.Domain.Product.Items.Interfaces
         Task<bool> AnyByName(string name, long? id = null);
 
         Task<Item?> GetById(long id);
-        Task<List<Item>> GetAll(FilterQuery queryParams);
+        Task<List<Item>> GetAll(FilterQuery queryParams, CancellationToken ct);
     }
 }

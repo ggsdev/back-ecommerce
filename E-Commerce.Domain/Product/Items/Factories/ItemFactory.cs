@@ -13,7 +13,7 @@ namespace E_Commerce.Domain.Product.Items.Factories
             {
                 Name = viewModel.Name,
                 Price = viewModel.Price,
-                SubCategoryId = viewModel.SubCategoryId,
+                SubCategoryId = viewModel.SubCategoryId!.Value,
                 Images = images
             };
         }
@@ -22,7 +22,7 @@ namespace E_Commerce.Domain.Product.Items.Factories
         {
             item.Name = viewModel.Name;
             item.Price = viewModel.Price;
-            item.SubCategoryId = viewModel.SubCategoryId;
+            item.SubCategoryId = viewModel.SubCategoryId!.Value;
             item.Images = images;
 
             return item;

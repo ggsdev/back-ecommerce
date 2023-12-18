@@ -1,6 +1,5 @@
 ﻿using E_Commerce.Domain.Product.Images.Entites;
 using E_Commerce.Domain.Product.Images.Interfaces;
-using E_Commerce.Domain.Product.Items.Entities;
 using E_Commerce.DTOs.ViewModels.Product;
 
 namespace E_Commerce.Domain.Product.Images.Services
@@ -9,7 +8,7 @@ namespace E_Commerce.Domain.Product.Images.Services
     {
         private readonly IImageRepository _imageRepository = imageRepository;
 
-        public async Task<List<Image>> CreateImages(List<CreateUpdateImageViewModel> bodyImages, Item item)
+        public async Task<List<Image>> CreateImages(List<CreateUpdateImageViewModel> bodyImages)
         {
             var images = new List<Image>();
 
@@ -25,7 +24,6 @@ namespace E_Commerce.Domain.Product.Images.Services
                         ImageContent = imageContent,
                         Name = image.Name,
                         IsShowCase = image.IsShowCase,
-                        Item = item
                     };
 
                     images.Add(createdImage);
