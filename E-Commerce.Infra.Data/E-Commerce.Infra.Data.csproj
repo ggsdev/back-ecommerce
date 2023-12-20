@@ -15,8 +15,6 @@
   <ItemGroup>
     <Folder Include="Product\Ratings\Mappings\" />
     <Folder Include="Product\Ratings\Repositories\" />
-    <Folder Include="Product\Stocks\Mappings\" />
-    <Folder Include="Product\Stocks\Repositories\" />
     <Folder Include="Payment\" />
     <Folder Include="Purcharse\Emails\Mappings\" />
     <Folder Include="Purcharse\Emails\Repositories\" />
