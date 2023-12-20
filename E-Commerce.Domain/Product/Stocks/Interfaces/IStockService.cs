@@ -6,7 +6,7 @@ namespace E_Commerce.Domain.Product.Stocks.Interfaces
     public interface IStockService
     {
         Task<Stock> CreateStock(CreateUpdateStockViewModel createUpdateStockViewModel);
-        //Stock UpdateStock(CreateUpdateStockViewModel createUpdateStockViewModel, long id);
+        Task UpdateStock(CreateUpdateStockViewModel createUpdateStockViewModel, long id);
         //StockDto GetStock(long id);
         //void DeleteStock(long id);
         //PaginatedDataDTO<StockDto> GetAllStocks();

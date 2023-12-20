@@ -11,11 +11,27 @@ namespace E_Commerce.Domain.Product.Stocks.Services
 
         public async Task<Stock> CreateStock(CreateUpdateStockViewModel createUpdateStockViewModel)
         {
+            if (createUpdateStockViewModel.IsAvailable && createUpdateStockViewModel.Quantity <= 0)
+                throw new Exception("Quantity must be greater than 0");
+
             var createdStock = _factory.Create(createUpdateStockViewModel);
 
             await _repository.Add(createdStock);
 
             return createdStock;
+        }
+
+        public async Task UpdateStock(CreateUpdateStockViewModel createUpdateStockViewModel, long id)
+        {
+            var stock = await _repository.GetByIdClean(id)
+                ?? throw new Exception("Not found");
+
+            if (createUpdateStockViewModel.IsAvailable && createUpdateStockViewModel.Quantity <= 0)
+                throw new Exception("Quantity must be greater than 0");
+
+            var updatedStock = _factory.Update(createUpdateStockViewModel, stock);
+
+            _repository.Update(updatedStock);
         }
     }
 }

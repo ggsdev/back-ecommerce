@@ -107,6 +107,7 @@ namespace E_Commerce.Infra.Data.Product.Items.Repositories
             return await _context.Items
                 .Include(item => item.SubCategory)
                 .Include(item => item.Images)
+                .Include(x => x.Stock)
                 .Where(item => item.Id == id)
                 .Select(x => new Item
                 {
@@ -128,6 +129,7 @@ namespace E_Commerce.Infra.Data.Product.Items.Repositories
                         Name = i.Name,
                         IsShowCase = i.IsShowCase,
                     }).ToList(),
+                    Stock = x.Stock
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync();

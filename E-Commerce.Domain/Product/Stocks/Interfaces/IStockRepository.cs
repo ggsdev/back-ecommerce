@@ -5,5 +5,6 @@ namespace E_Commerce.Domain.Product.Stocks.Interfaces
 {
     public interface IStockRepository : IBaseRepository<Stock>
     {
+
     }
 }

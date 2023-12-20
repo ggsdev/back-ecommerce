@@ -32,11 +32,11 @@ namespace E_Commerce.Domain.Product.Items.Services
             var subCategoryInDatabase = await _subCategoryRepository.GetByIdClean(viewModel.SubCategoryId!.Value)
                 ?? throw new Exception("SubCategory not found");
 
-            var stock = await _stockService.CreateStock(viewModel.Stock);
+            var createdStock = await _stockService.CreateStock(viewModel.Stock);
 
-            var images = await _imageService.CreateImages(viewModel.Images);
+            var createdImages = await _imageService.CreateImages(viewModel.Images);
 
-            var createdItem = _factory.Create(viewModel, images, stock, subCategoryInDatabase);
+            var createdItem = _factory.Create(viewModel, createdImages, createdStock, subCategoryInDatabase);
 
             await _repository.Add(createdItem);
 
@@ -98,9 +98,11 @@ namespace E_Commerce.Domain.Product.Items.Services
             var updatedItem = await _repository.GetById(id)
                 ?? throw new Exception("Not found");
 
-            var images = await _imageService.CreateImages(viewModel.Images);
+            await _stockService.UpdateStock(viewModel.Stock, updatedItem.StockId);
 
-            updatedItem = _factory.Update(updatedItem, viewModel, images);
+            var createdImages = await _imageService.CreateImages(viewModel.Images);
+
+            updatedItem = _factory.Update(updatedItem, viewModel, createdImages);
 
             _repository.Update(updatedItem);
 
