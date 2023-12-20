@@ -1,5 +1,6 @@
 ﻿using E_Commerce.Common;
 using E_Commerce.Domain.Product.Images.Entites;
+using E_Commerce.Domain.Product.Stocks.Entities;
 using E_Commerce.Domain.Product.SubCategories.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,5 +15,9 @@ namespace E_Commerce.Domain.Product.Items.Entities
         [ForeignKey(nameof(SubCategory))]
         public long SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; } = null!;
+
+        [ForeignKey(nameof(Stock))]
+        public long StockId { get; set; }
+        public Stock Stock { get; set; } = null!;
     }
 }

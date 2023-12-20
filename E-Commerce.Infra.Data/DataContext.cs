@@ -5,6 +5,7 @@ using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Categories.Entities;
 using E_Commerce.Domain.Product.Images.Entites;
 using E_Commerce.Domain.Product.Items.Entities;
+using E_Commerce.Domain.Product.Stocks.Entities;
 using E_Commerce.Domain.Product.SubCategories.Entities;
 using E_Commerce.Infra.Data.ControlAccess.Infos.Mappings;
 using E_Commerce.Infra.Data.ControlAccess.Sessions.Mappings;
@@ -12,6 +13,7 @@ using E_Commerce.Infra.Data.ControlAccess.Users.Mappings;
 using E_Commerce.Infra.Data.Product.Categories.Mappings;
 using E_Commerce.Infra.Data.Product.Images.Mappings;
 using E_Commerce.Infra.Data.Product.Items.Mappings;
+using E_Commerce.Infra.Data.Product.Stocks.Mappings;
 using E_Commerce.Infra.Data.Product.SubCategories.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -31,6 +33,7 @@ namespace E_Commerce.Infra.Data
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -81,6 +84,7 @@ namespace E_Commerce.Infra.Data
             modelBuilder.ApplyConfiguration(new SubCategoryMap());
             modelBuilder.ApplyConfiguration(new ImageMap());
             modelBuilder.ApplyConfiguration(new ItemMap());
+            modelBuilder.ApplyConfiguration(new StockMap());
         }
 
         private static readonly ILoggerFactory MyLoggerFactory

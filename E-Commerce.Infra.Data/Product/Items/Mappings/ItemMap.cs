@@ -29,6 +29,11 @@ namespace E_Commerce.Infra.Data.Product.Items.Mappings
 
             builder.HasIndex(builder => builder.Name)
                 .IsUnique();
+
+            builder.HasOne(x => x.Stock)
+                .WithOne(x => x.Item)
+                .HasForeignKey<Item>(x => x.StockId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

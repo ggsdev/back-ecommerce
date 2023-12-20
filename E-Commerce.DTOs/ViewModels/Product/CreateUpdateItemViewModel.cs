@@ -16,5 +16,7 @@ namespace E_Commerce.DTOs.ViewModels.Product
         [Required(ErrorMessage = $"O campo {nameof(Images)} é obrigatório.")]
         [Length(1, 5, ErrorMessage = "Mínimo 1 imagem, máximo 5 imagens.")]
         public List<CreateUpdateImageViewModel> Images { get; set; } = [];
+        [Required(ErrorMessage = $"O campo {nameof(Stock)} é obrigatório.")]
+        public CreateUpdateStockViewModel Stock { get; set; } = null!;
     }
 }

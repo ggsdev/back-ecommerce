@@ -3,16 +3,18 @@ using E_Commerce.Common;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Images.Interfaces;
 using E_Commerce.Domain.Product.Items.Interfaces;
+using E_Commerce.Domain.Product.Stocks.Interfaces;
 using E_Commerce.Domain.Product.SubCategories.Interfaces;
 using E_Commerce.DTOs.DTOs;
 using E_Commerce.DTOs.ViewModels.Product;
 
 namespace E_Commerce.Domain.Product.Items.Services
 {
-    internal class ItemService(IItemRepository itemRepository, IItemFactory itemFactory, IMapper mapper, IImageService imageService, ISubCategoryRepository subCategoryRepository) : IItemService
+    internal class ItemService(IItemRepository itemRepository, IItemFactory itemFactory, IMapper mapper, IImageService imageService, ISubCategoryRepository subCategoryRepository, IStockService stockService) : IItemService
     {
         private readonly IItemRepository _repository = itemRepository;
         private readonly ISubCategoryRepository _subCategoryRepository = subCategoryRepository;
+        private readonly IStockService _stockService = stockService;
         private readonly IItemFactory _factory = itemFactory;
         private readonly IMapper _mapper = mapper;
         private readonly IImageService _imageService = imageService;
@@ -30,9 +32,11 @@ namespace E_Commerce.Domain.Product.Items.Services
             var subCategoryInDatabase = await _subCategoryRepository.GetByIdClean(viewModel.SubCategoryId!.Value)
                 ?? throw new Exception("SubCategory not found");
 
+            var stock = await _stockService.CreateStock(viewModel.Stock);
+
             var images = await _imageService.CreateImages(viewModel.Images);
 
-            var createdItem = _factory.Create(viewModel, images);
+            var createdItem = _factory.Create(viewModel, images, stock, subCategoryInDatabase);
 
             await _repository.Add(createdItem);
 

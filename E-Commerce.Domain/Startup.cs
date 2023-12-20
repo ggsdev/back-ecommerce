@@ -17,6 +17,9 @@ using E_Commerce.Domain.Product.Images.Services;
 using E_Commerce.Domain.Product.Items.Factories;
 using E_Commerce.Domain.Product.Items.Interfaces;
 using E_Commerce.Domain.Product.Items.Services;
+using E_Commerce.Domain.Product.Stocks.Factories;
+using E_Commerce.Domain.Product.Stocks.Interfaces;
+using E_Commerce.Domain.Product.Stocks.Services;
 using E_Commerce.Domain.Product.SubCategories.Factories;
 using E_Commerce.Domain.Product.SubCategories.Interfaces;
 using E_Commerce.Domain.Product.SubCategories.Services;
@@ -43,6 +46,7 @@ namespace E_Commerce.Domain
             services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IStockService, StockService>();
         }
 
         public static void RegisterFactories(IServiceCollection services)
@@ -53,6 +57,7 @@ namespace E_Commerce.Domain
             services.AddScoped<ICategoryFactory, CategoryFactory>();
             services.AddScoped<IItemFactory, ItemFactory>();
             services.AddScoped<IImageFactory, ImageFactory>();
+            services.AddScoped<IStockFactory, StockFactory>();
         }
 
         public static void RegisterValidators(IServiceCollection services)

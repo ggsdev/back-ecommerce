@@ -43,7 +43,7 @@ namespace E_Commerce.Api.Controllers
         {
             var data = await _service.CreateUser(body);
 
-            return Created("v1/api", data);
+            return Created("v1/api/user", data);
         }
 
         [HttpPut("{id}")]
