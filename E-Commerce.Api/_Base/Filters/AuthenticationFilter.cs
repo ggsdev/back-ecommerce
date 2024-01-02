@@ -12,7 +12,8 @@ namespace E_Commerce.Api._Base.Filters
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var userId = context.HttpContext.Items["Id"] as long?;
-            if (userId is not null)
+
+            if (userId is long)
             {
                 var user = await _context.Users
                     .FirstOrDefaultAsync(x => x.Id == userId);
@@ -30,6 +31,7 @@ namespace E_Commerce.Api._Base.Filters
                 context.HttpContext.Items["User"] = user;
 
             }
+
             await next();
         }
     }

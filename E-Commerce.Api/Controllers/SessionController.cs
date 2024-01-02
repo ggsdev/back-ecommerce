@@ -17,7 +17,7 @@ namespace E_Commerce.Api.Controllers
         {
             var data = await _service.CreateSession(body);
 
-            return Created($"{Constants.ApiPrefixFirstVersion}/session", data);
+            return Created($"{Constants.ApiPrefixFirstVersion}/Session", data);
         }
     }
 }

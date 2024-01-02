@@ -1,11 +1,11 @@
-﻿using E_Commerce.Infra.Data;
+﻿using E_Commerce.Common;
+using E_Commerce.Infra.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.Api._Base
 {
-    [Route("v1/api")]
-    [ApiController]
+    [Route(Constants.ApiPrefixFirstVersion + "/[controller]")]
     public class HealthCheckController(DataContext dbContext) : ControllerBase
     {
         private readonly DataContext _dbContext = dbContext;

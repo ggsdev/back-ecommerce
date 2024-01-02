@@ -18,14 +18,12 @@ namespace E_Commerce.Domain.ControlAccess.Infos.Services
                 .AnyByEmailOrCellphone(infoViewModel.Email, infoViewModel.Cellphone);
 
             if (isInfoAlreadyRegistered)
-                throw new Exception("Info already registered");
+                throw new Exception("Info already registered, email or cellphone duplicated");
 
             var createdInfo = _factory
                 .Create(infoViewModel, addressViewModel);
 
             await _repository.Add(createdInfo);
-
-            await _repository.Save();
 
             return createdInfo;
         }
@@ -53,8 +51,6 @@ namespace E_Commerce.Domain.ControlAccess.Infos.Services
                 throw new Exception("Info already registered");
 
             var updatedInfo = _factory.UpdateInfo(userInfo, infoViewModel);
-
-            await _repository.Save();
 
             var infoDto = _mapper.Map<InfoDto>(updatedInfo);
 

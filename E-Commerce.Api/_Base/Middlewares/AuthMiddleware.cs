@@ -3,14 +3,9 @@ using System.Security.Claims;
 
 namespace E_Commerce.Api._Base.Middlewares
 {
-    public class AuthMiddleware
+    public class AuthMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-
-        public AuthMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
+        private readonly RequestDelegate _next = next;
 
         public async Task InvokeAsync(HttpContext context)
         {
@@ -19,6 +14,7 @@ namespace E_Commerce.Api._Base.Middlewares
             if (authenticateResult.Succeeded && authenticateResult.Principal?.Identity is ClaimsIdentity claimsIdentity)
             {
                 var userIdClaim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
                 if (userIdClaim is not null && long.TryParse(userIdClaim.Value, out long userId))
                 {
                     context.Items["Id"] = userId;
@@ -29,28 +25,17 @@ namespace E_Commerce.Api._Base.Middlewares
 
             if (context.Response.StatusCode == 401 && !context.Response.HasStarted)
             {
-                string? message;
-
-                switch (authenticateResult.Failure)
+                string? message = authenticateResult.Failure switch
                 {
-                    case null:
-                        message = "Token is missing";
-                        break;
-                    case Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException:
-                        message = "Token has already expired";
-                        break;
-                    default:
-                        message = "Invalid JWT format for token";
-                        break;
-                }
-
+                    null => "Token is missing",
+                    Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException => "Token has already expired",
+                    _ => "Invalid JWT format for token",
+                };
 
                 context.Response.ContentType = "application/json";
+
                 await context.Response.WriteAsync($"{{\"message\": \"{message}\"}}");
-
             }
-
         }
-
     }
 }
