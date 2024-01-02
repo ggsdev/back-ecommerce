@@ -1,6 +1,6 @@
 ﻿namespace E_Commerce.Common
 {
-    public interface IBaseRepository<T> where T : class
+    public interface IBaseRepository<T> where T : BaseEntity
     {
         Task Add(T entity);
         void Update(T entity);
