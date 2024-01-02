@@ -2,10 +2,13 @@
 
 namespace E_Commerce.DTOs.DTOs
 {
-    public record StockDto(
+    public record RatingDto(
         long Id,
         string CreatedAt,
-        string? UpdatedAt
-
+        string? UpdatedAt,
+        int Value,
+        string Comment,
+        long ItemId,
+        long UserId
     ) : BaseDto(Id, CreatedAt, UpdatedAt);
 }

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using E_Commerce.Shared;
 using E_Commerce.Domain.ControlAccess.Sessions.Entities;
 using E_Commerce.Domain.ControlAccess.Sessions.Interfaces;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
 using E_Commerce.DTOs.DTOs;
 using E_Commerce.DTOs.ViewModels.ControlAccess;
+using E_Commerce.Shared;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -39,23 +39,18 @@ namespace E_Commerce.Domain.ControlAccess.Sessions.Services
             if (userByEmail.Session is not null)
                 _repository.Delete(userByEmail.Session);
 
-            var tokenDto = GenerateJwtToken(userByEmail);
+            var token = GenerateJwtToken(userByEmail);
 
-            var createdSession = new Session
-            {
-                Token = tokenDto.Token,
-                User = userByEmail,
-                ExpirationDate = tokenDto.ExpirationDate
-            };
-
-            await _repository.Add(createdSession);
+            await _repository.Add(token);
 
             await _repository.Save();
+
+            var tokenDto = _mapper.Map<SessionDto>(token);
 
             return tokenDto;
         }
 
-        private static SessionDto GenerateJwtToken(User user)
+        private static Session GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Configuration.SecretKey);
@@ -72,11 +67,12 @@ namespace E_Commerce.Domain.ControlAccess.Sessions.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return new SessionDto
-            (
-                tokenHandler.WriteToken(token),
-                token.ValidTo
-            );
+            return new Session
+            {
+                User = user,
+                Token = tokenHandler.WriteToken(token),
+                ExpirationDate = token.ValidTo
+            };
         }
     }
 }

@@ -13,9 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Product\Ratings\Entities\" />
-    <Folder Include="Product\Ratings\Interfaces\" />
-    <Folder Include="Product\Ratings\Services\" />
     <Folder Include="Purcharse\Emails\Entities\" />
     <Folder Include="Purcharse\Emails\Interfaces\" />
     <Folder Include="Purcharse\Emails\Services\" />
@@ -26,7 +23,6 @@
     <Folder Include="Purcharse\Orders\Interfaces\" />
     <Folder Include="Purcharse\Orders\Services\" />
     <Folder Include="Payment\" />
-    <Folder Include="Purcharse\Status\Entities\" />
     <Folder Include="Purcharse\Status\Interfaces\" />
     <Folder Include="Purcharse\Status\Services\" />
   </ItemGroup>

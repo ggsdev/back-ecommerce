@@ -1,15 +1,17 @@
-﻿using E_Commerce.Domain.Product.Ratings.Entities;
+﻿using AutoMapper;
 using E_Commerce.Domain.Product.Ratings.Interfaces;
+using E_Commerce.DTOs.DTOs;
 using E_Commerce.DTOs.ViewModels.Product;
 
 namespace E_Commerce.Domain.Product.Ratings.Services
 {
-    internal class RatingService(IRatingRepository repository, IRatingFactory factory)
+    internal class RatingService(IRatingRepository repository, IRatingFactory factory, IMapper mapper) : IRatingService
     {
         private readonly IRatingRepository _repository = repository;
         private readonly IRatingFactory _factory = factory;
+        private readonly IMapper _mapper = mapper;
 
-        public async Task<Rating> Create(CreateUpdateRatingViewModel createUpdateRatingViewModel)
+        public async Task<RatingDto> Create(CreateUpdateRatingViewModel createUpdateRatingViewModel)
         {
             //adicionar validação de order concluida, pelo orderId, usuarios só poderão avaliar produtos de pedidos concluidos
 
@@ -19,7 +21,9 @@ namespace E_Commerce.Domain.Product.Ratings.Services
 
             await _repository.Save();
 
-            return createdRating;
+            var ratingDto = _mapper.Map<RatingDto>(createdRating);
+
+            return ratingDto;
         }
     }
 }

@@ -19,9 +19,10 @@ namespace E_Commerce.Infra.Data.ControlAccess.Users.Repositories
 
             if (!string.IsNullOrWhiteSpace(paramQuery.Search))
             {
-                query = query.Where(x => x.Name.ToUpper().Contains(paramQuery.Search.ToUpper())
-                || x.Surname.ToUpper().Contains(paramQuery.Search.ToUpper())
-                );
+                query = query
+                    .Where(x => EF.Functions.Like(x.Name, paramQuery.Search)
+                    || EF.Functions.Like(x.Surname, paramQuery.Search)
+                    );
             }
 
             if (!string.IsNullOrWhiteSpace(paramQuery.SortColumn))
