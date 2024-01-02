@@ -10,6 +10,6 @@
         public static readonly string DESCSORTORDER = "desc";
         public static readonly string ASCSORTORDER = "asc";
 
-        public const string ApiPrefix = "v1/api";
+        public const string ApiPrefixFirstVersion = "v1/api";
     }
 }

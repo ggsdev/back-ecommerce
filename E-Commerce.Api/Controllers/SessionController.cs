@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.Api.Controllers
 {
-    [Route("v1/api/[controller]")]
-    [ApiController]
+    [Route(Constants.ApiPrefixFirstVersion + "/[controller]")]
     public class SessionController(ISessionService service) : ControllerBase
     {
         private readonly ISessionService _service = service;
@@ -18,7 +17,7 @@ namespace E_Commerce.Api.Controllers
         {
             var data = await _service.CreateSession(body);
 
-            return Created($"{Constants.ApiPrefix}/session", data);
+            return Created($"{Constants.ApiPrefixFirstVersion}/session", data);
         }
     }
 }

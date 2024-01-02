@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.Api.Controllers
 {
-    [Route("v1/api/[controller]")]
-    [ApiController]
+    [Route(Constants.ApiPrefixFirstVersion + "/[controller]")]
     [ServiceFilter(typeof(AuthenticationFilter))]
     public class SubCategoryController(ISubCategoryService service) : ControllerBase
     {
@@ -39,7 +38,7 @@ namespace E_Commerce.Api.Controllers
 
             var data = await _service.CreateSubCategory(body, loggedUser!);
 
-            return Created($"{Constants.ApiPrefix}/subcategory", data);
+            return Created($"{Constants.ApiPrefixFirstVersion}/subcategory", data);
         }
 
         [HttpPut("{id}")]
