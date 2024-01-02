@@ -43,7 +43,7 @@ namespace E_Commerce.Api.Controllers
 
             var data = await _service.CreateItem(body, loggedUser!);
 
-            return Created("v1/api/item", data);
+            return Created($"{Constants.ApiPrefix}/item", data);
         }
 
         [HttpPut("{id}")]

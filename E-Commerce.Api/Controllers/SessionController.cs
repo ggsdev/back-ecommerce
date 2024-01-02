@@ -1,4 +1,5 @@
-﻿using E_Commerce.Domain.ControlAccess.Sessions.Interfaces;
+﻿using E_Commerce.Common;
+using E_Commerce.Domain.ControlAccess.Sessions.Interfaces;
 using E_Commerce.DTOs.ViewModels.ControlAccess;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace E_Commerce.Api.Controllers
         {
             var data = await _service.CreateSession(body);
 
-            return Created("v1/api/session", data);
+            return Created($"{Constants.ApiPrefix}/session", data);
         }
     }
 }

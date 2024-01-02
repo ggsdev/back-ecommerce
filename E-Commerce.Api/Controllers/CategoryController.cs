@@ -41,7 +41,7 @@ namespace E_Commerce.Api.Controllers
             var data = await _service.CreateCategory(body, loggedUser!);
 
 
-            return Created("v1/api/category", data);
+            return Created($"{Constants.ApiPrefix}/category", data);
         }
 
         [HttpPut("{id}")]
