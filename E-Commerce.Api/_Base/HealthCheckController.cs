@@ -1,4 +1,4 @@
-﻿using E_Commerce.Common;
+﻿using E_Commerce.Shared;
 using E_Commerce.Infra.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

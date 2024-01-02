@@ -1,4 +1,4 @@
-﻿using E_Commerce.Common;
+﻿using E_Commerce.Shared;
 using E_Commerce.Domain.ControlAccess.Infos.Entities;
 using E_Commerce.Domain.ControlAccess.Sessions.Entities;
 using System.ComponentModel.DataAnnotations.Schema;

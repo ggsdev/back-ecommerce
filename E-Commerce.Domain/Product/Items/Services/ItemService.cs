@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using E_Commerce.Common;
+using E_Commerce.Shared;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Images.Interfaces;
 using E_Commerce.Domain.Product.Items.Interfaces;

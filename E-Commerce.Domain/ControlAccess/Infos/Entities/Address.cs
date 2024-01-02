@@ -1,4 +1,4 @@
-﻿using E_Commerce.Common;
+﻿using E_Commerce.Shared;
 
 namespace E_Commerce.Domain.ControlAccess.Infos.Entities
 {

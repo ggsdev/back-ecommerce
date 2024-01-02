@@ -1,4 +1,4 @@
-﻿using E_Commerce.Common;
+﻿using E_Commerce.Shared;
 using E_Commerce.Domain.ControlAccess.Sessions.Interfaces;
 using E_Commerce.DTOs.ViewModels.ControlAccess;
 using Microsoft.AspNetCore.Authorization;

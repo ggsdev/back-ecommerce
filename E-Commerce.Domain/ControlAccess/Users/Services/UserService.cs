@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using E_Commerce.Common;
 using E_Commerce.Domain.ControlAccess.Infos.Interfaces;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
 using E_Commerce.DTOs.DTOs;
 using E_Commerce.DTOs.ViewModels.ControlAccess;
+using E_Commerce.Shared;
 
 namespace E_Commerce.Domain.ControlAccess.Users.Services
 {
@@ -34,10 +34,10 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
         public async Task DeleteUser(long id, User loggedUser)
         {
             if (loggedUser.IsAdmin is false)
-                throw new Exception("You don't have permission to access this user");
+                throw new Exception(DomainMessages.UserNotAdmin);
 
             var userToBeDeleted = await _repository.GetByIdClean(id)
-                ?? throw new Exception("User not found");
+                ?? throw new Exception(DomainMessages.UserNotFound);
 
             _repository.Delete(userToBeDeleted);
 
@@ -49,7 +49,7 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
         public async Task<PaginatedDataDTO<UserDto>> GetAllUsers(FilterQuery queryParams, string requestUrl, User loggedUser)
         {
             if (loggedUser.IsAdmin is false)
-                throw new Exception("You don't have permission to access users");
+                throw new Exception(DomainMessages.UserNotFound);
 
             var totalCount = await _repository.Count();
 
@@ -65,10 +65,10 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
         public async Task<UserDto> GetUserById(long id, User loggedUser)
         {
             if (loggedUser.IsAdmin is false && loggedUser.Id != id)
-                throw new Exception("You don't have permission to access this user");
+                throw new Exception(DomainMessages.UserNotAdmin);
 
             var user = await _repository.GetById(id)
-                ?? throw new Exception("User not found");
+                ?? throw new Exception(DomainMessages.UserNotFound);
 
             var userDto = _mapper.Map<UserDto>(user);
 
@@ -78,10 +78,10 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
         public async Task<UserDto> UpdateUser(UpdateUserViewModel body, long id, User loggedUser)
         {
             if (loggedUser.IsAdmin is false && loggedUser.Id != id)
-                throw new Exception("You don't have permission to access this user");
+                throw new Exception(DomainMessages.UserNotAdmin);
 
             var user = await _repository.GetById(id)
-               ?? throw new Exception("User not found");
+               ?? throw new Exception(DomainMessages.UserNotFound);
 
             var updatedUser = _factory.Update(user, body);
 

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using E_Commerce.Common;
+using E_Commerce.Shared;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Categories.Interfaces;
 using E_Commerce.Domain.Product.SubCategories.Interfaces;
@@ -18,18 +18,18 @@ namespace E_Commerce.Domain.Product.SubCategories.Services
         public async Task<SubCategoryDto> CreateSubCategory(CreateUpdateSubCategoryViewModel viewModel, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
-                throw new Exception("User not admin");
+                throw new Exception(DomainMessages.UserNotAdmin);
 
             var anyByName = await _repository.AnyByName(viewModel.Name);
 
             if (anyByName)
-                throw new Exception("Category already registered");
+                throw new Exception(DomainMessages.CategoryAlreadyRegistered);
 
             var anyCategoryInDatabase = await _categoryRepository
                 .AnyById(viewModel.CategoryId);
 
             if (!anyCategoryInDatabase)
-                throw new Exception("Category not found");
+                throw new Exception(DomainMessages.CategoryNotFound);
 
             var createdCategory = _factory.Create(viewModel);
 
@@ -45,10 +45,10 @@ namespace E_Commerce.Domain.Product.SubCategories.Services
         public async Task DeleteSubCategory(long id, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
-                throw new Exception("User not admin");
+                throw new Exception(DomainMessages.UserNotAdmin);
 
             var subCategoryInDatabase = await _repository.GetByIdClean(id)
-                ?? throw new Exception("SubCategory not found");
+                ?? throw new Exception(DomainMessages.SubCategoryNotFound);
 
             _repository.Delete(subCategoryInDatabase);
 
@@ -73,7 +73,7 @@ namespace E_Commerce.Domain.Product.SubCategories.Services
         public async Task<SubCategoryDto> GetSubCategoryById(long id)
         {
             var subCategory = await _repository.GetByIdClean(id)
-                ?? throw new Exception("SubCategory not found");
+                ?? throw new Exception(DomainMessages.SubCategoryNotFound);
 
             var subCategoryDto = _mapper.Map<SubCategoryDto>(subCategory);
 
@@ -83,10 +83,10 @@ namespace E_Commerce.Domain.Product.SubCategories.Services
         public async Task<SubCategoryDto> UpdateSubCategory(long id, CreateUpdateSubCategoryViewModel viewModel, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
-                throw new Exception("User not admin");
+                throw new Exception(DomainMessages.UserNotAdmin);
 
             var subCategory = await _repository.GetByIdClean(id)
-               ?? throw new Exception("SubCategory not found");
+               ?? throw new Exception(DomainMessages.SubCategoryNotFound);
 
             var updatedSubCategory = _factory.Update(subCategory, viewModel);
 

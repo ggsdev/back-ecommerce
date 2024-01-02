@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\E-Commerce.Common\E-Commerce.Common.csproj" />
+    <ProjectReference Include="..\E-Commerce.Common\E-Commerce.Shared.csproj" />
     <ProjectReference Include="..\E-Commerce.DTOs\E-Commerce.DTOs.csproj" />
   </ItemGroup>
 

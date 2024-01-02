@@ -1,4 +1,4 @@
-﻿namespace E_Commerce.Common
+﻿namespace E_Commerce.Shared
 {
     public static class GlobalUtils
     {

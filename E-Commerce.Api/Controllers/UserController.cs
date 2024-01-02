@@ -1,8 +1,8 @@
 ﻿using E_Commerce.Api._Base.Filters;
-using E_Commerce.Common;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
 using E_Commerce.DTOs.ViewModels.ControlAccess;
+using E_Commerce.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-﻿using E_Commerce.Common;
+﻿using E_Commerce.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce.Infra.Data

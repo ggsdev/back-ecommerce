@@ -1,4 +1,4 @@
-﻿using E_Commerce.Common;
+﻿using E_Commerce.Shared;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 
 namespace E_Commerce.Domain.ControlAccess.Users.Interfaces

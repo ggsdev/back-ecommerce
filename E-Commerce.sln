@@ -17,14 +17,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Commerce.Infra.IoC", "E-C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Commerce.Infra.Data", "E-Commerce.Infra.Data\E-Commerce.Infra.Data.csproj", "{665B193E-08C9-4490-A2EC-E8E1AB7DCE97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Commerce.Common", "E-Commerce.Common\E-Commerce.Common.csproj", "{456807E1-76B3-4EA4-BB0B-22114AE6624E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Commerce.Shared", "E-Commerce.Common\E-Commerce.Shared.csproj", "{456807E1-76B3-4EA4-BB0B-22114AE6624E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Commerce.DTOs", "E-Commerce.DTOs\E-Commerce.DTOs.csproj", "{41E4593C-3E71-43DC-AC79-DE485CD13C7E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{456807E1-76B3-4EA4-BB0B-22114AE6624E} = {456807E1-76B3-4EA4-BB0B-22114AE6624E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce.Tests", "E-Commerce.Tests\E-Commerce.Tests.csproj", "{726087AF-1B76-4FAE-8071-D27EDAAAA08F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Commerce.Tests", "E-Commerce.Tests\E-Commerce.Tests.csproj", "{726087AF-1B76-4FAE-8071-D27EDAAAA08F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

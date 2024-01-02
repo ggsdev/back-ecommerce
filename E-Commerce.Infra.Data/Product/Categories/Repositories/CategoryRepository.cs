@@ -1,4 +1,4 @@
-﻿using E_Commerce.Common;
+﻿using E_Commerce.Shared;
 using E_Commerce.Domain.Product.Categories.Entities;
 using E_Commerce.Domain.Product.Categories.Interfaces;
 using Microsoft.EntityFrameworkCore;

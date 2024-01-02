@@ -1,4 +1,4 @@
-﻿using E_Commerce.Common;
+﻿using E_Commerce.Shared;
 using E_Commerce.Domain.Product.Images.Entites;
 
 namespace E_Commerce.Domain.Product.Images.Interfaces

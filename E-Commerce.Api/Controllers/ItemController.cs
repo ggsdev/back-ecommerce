@@ -1,5 +1,5 @@
 ﻿using E_Commerce.Api._Base.Filters;
-using E_Commerce.Common;
+using E_Commerce.Shared;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Items.Interfaces;
 using E_Commerce.DTOs.ViewModels.Product;
