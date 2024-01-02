@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -82,6 +83,8 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
 
     //Domain Startup Services
     E_Commerce.Domain.Startup.ConfigureServices(services);
+
+    ConfigureSwagger(services, Configuration.SecretKey);
 }
 
 static void ConfigureJwtAuthentication(IServiceCollection services, string secretKey)
@@ -104,5 +107,35 @@ static void ConfigureJwtAuthentication(IServiceCollection services, string secre
             ValidateIssuer = false,
             ValidateAudience = false
         };
+    });
+}
+
+static void ConfigureSwagger(IServiceCollection services, string jwtKey)
+{
+    services.AddSwaggerGen(c =>
+    {
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Description = "LOGIN"
+        });
+
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
     });
 }

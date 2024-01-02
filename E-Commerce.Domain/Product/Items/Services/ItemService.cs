@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using E_Commerce.Shared;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Images.Interfaces;
 using E_Commerce.Domain.Product.Items.Interfaces;
@@ -7,6 +6,7 @@ using E_Commerce.Domain.Product.Stocks.Interfaces;
 using E_Commerce.Domain.Product.SubCategories.Interfaces;
 using E_Commerce.DTOs.DTOs;
 using E_Commerce.DTOs.ViewModels.Product;
+using E_Commerce.Shared;
 
 namespace E_Commerce.Domain.Product.Items.Services
 {
@@ -22,7 +22,7 @@ namespace E_Commerce.Domain.Product.Items.Services
         public async Task<ItemDto> CreateItem(CreateUpdateItemViewModel viewModel, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
-                throw new UnauthorizedAccessException("User not admin");
+                throw new UnauthorizedAccessException(DomainMessages.UserNotAdmin);
 
             var anyInDatabase = await _repository.AnyByName(viewModel.Name);
 
@@ -50,7 +50,7 @@ namespace E_Commerce.Domain.Product.Items.Services
         public async Task DeleteItem(long id, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
-                throw new UnauthorizedAccessException("User not admin");
+                throw new UnauthorizedAccessException(DomainMessages.UserNotAdmin);
 
             var item = await _repository.GetByIdClean(id)
                 ?? throw new Exception("Not found");
@@ -88,7 +88,7 @@ namespace E_Commerce.Domain.Product.Items.Services
         public async Task<ItemDto> UpdateItem(CreateUpdateItemViewModel viewModel, long id, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
-                throw new UnauthorizedAccessException("User not admin");
+                throw new UnauthorizedAccessException(DomainMessages.UserNotAdmin);
 
             var anyInDatabase = await _repository.AnyByName(viewModel.Name, id);
 

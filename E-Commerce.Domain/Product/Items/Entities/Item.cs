@@ -1,7 +1,8 @@
-﻿using E_Commerce.Shared;
-using E_Commerce.Domain.Product.Images.Entites;
+﻿using E_Commerce.Domain.Product.Images.Entites;
+using E_Commerce.Domain.Product.Ratings.Entities;
 using E_Commerce.Domain.Product.Stocks.Entities;
 using E_Commerce.Domain.Product.SubCategories.Entities;
+using E_Commerce.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace E_Commerce.Domain.Product.Items.Entities
@@ -19,5 +20,6 @@ namespace E_Commerce.Domain.Product.Items.Entities
         [ForeignKey(nameof(Stock))]
         public long StockId { get; set; }
         public Stock Stock { get; set; } = null!;
+        public List<Rating> Ratings { get; set; } = [];
     }
 }

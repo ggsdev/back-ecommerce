@@ -1,5 +1,5 @@
-﻿using E_Commerce.Shared;
-using E_Commerce.Infra.Data;
+﻿using E_Commerce.Infra.Data;
+using E_Commerce.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,15 +20,19 @@ namespace E_Commerce.Api._Base
             try
             {
                 var safe = await _dbContext.Database.CanConnectAsync();
+
                 if (safe is false)
                     return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Problema ao se conectar com o banco de dados", Version = versiond, ConnectedToDatabase = false });
 
-                return Ok(new { Message = "API saudável", Version = versiond, ConnectedToDatabase = true });
+                return Ok(
+                            new { Message = "Conexão com o banco estabelecida", Version = versiond, ConnectedToDatabase = true }
+                         );
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Problema ao se conectar com o banco de dados", Version = versiond, ConnectedToDatabase = false });
             }
         }
