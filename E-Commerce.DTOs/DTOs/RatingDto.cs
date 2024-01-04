@@ -3,12 +3,12 @@
 namespace E_Commerce.DTOs.DTOs
 {
     public record RatingDto(
-        long Id,
+        int Id,
         string CreatedAt,
         string? UpdatedAt,
         int Value,
         string Comment,
-        long ItemId,
-        long UserId
+        int ItemId,
+        int UserId
     ) : BaseDto(Id, CreatedAt, UpdatedAt);
 }

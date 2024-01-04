@@ -47,7 +47,7 @@ namespace E_Commerce.Domain.Product.Items.Services
             return itemDto;
         }
 
-        public async Task DeleteItem(long id, User loggedUser)
+        public async Task DeleteItem(int id, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
                 throw new UnauthorizedAccessException(DomainMessages.UserNotAdmin);
@@ -62,7 +62,7 @@ namespace E_Commerce.Domain.Product.Items.Services
             return;
         }
 
-        public async Task<ItemDto?> GetItemById(long id)
+        public async Task<ItemDto?> GetItemById(int id)
         {
             var item = await _repository.GetByIdClean(id)
                ?? throw new Exception("Not found");
@@ -85,7 +85,7 @@ namespace E_Commerce.Domain.Product.Items.Services
             return paginatedData;
         }
 
-        public async Task<ItemDto> UpdateItem(CreateUpdateItemViewModel viewModel, long id, User loggedUser)
+        public async Task<ItemDto> UpdateItem(CreateUpdateItemViewModel viewModel, int id, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
                 throw new UnauthorizedAccessException(DomainMessages.UserNotAdmin);

@@ -8,9 +8,9 @@ namespace E_Commerce.Domain.Product.Items.Interfaces
     public interface IItemService
     {
         Task<ItemDto> CreateItem(CreateUpdateItemViewModel viewModel, User loggedUser);
-        Task<ItemDto> UpdateItem(CreateUpdateItemViewModel viewModel, long id, User loggedUser);
-        Task DeleteItem(long id, User loggedUser);
-        Task<ItemDto?> GetItemById(long id);
+        Task<ItemDto> UpdateItem(CreateUpdateItemViewModel viewModel, int id, User loggedUser);
+        Task DeleteItem(int id, User loggedUser);
+        Task<ItemDto?> GetItemById(int id);
         Task<PaginatedDataDTO<ItemDto>> GetItems(FilterQuery filterQuery, string requestUrl, CancellationToken ct);
     }
 }

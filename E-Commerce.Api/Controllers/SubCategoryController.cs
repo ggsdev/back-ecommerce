@@ -24,7 +24,7 @@ namespace E_Commerce.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        public async Task<IActionResult> Get(int id)
         {
             var data = await _service.GetSubCategoryById(id);
 
@@ -42,7 +42,7 @@ namespace E_Commerce.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(CreateUpdateSubCategoryViewModel body, long id)
+        public async Task<IActionResult> Put(CreateUpdateSubCategoryViewModel body, int id)
         {
             var loggedUser = HttpContext.Items["User"] as User;
 
@@ -52,7 +52,7 @@ namespace E_Commerce.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id)
+        public async Task<IActionResult> Delete(int id)
         {
             var loggedUser = HttpContext.Items["User"] as User;
 

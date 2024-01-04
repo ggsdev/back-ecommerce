@@ -3,7 +3,7 @@
 namespace E_Commerce.DTOs.DTOs
 {
     public record ItemDto(
-        long Id,
+        int Id,
         string Name,
         decimal Price,
         string? Description,

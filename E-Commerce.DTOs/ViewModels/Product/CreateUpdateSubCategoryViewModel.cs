@@ -8,6 +8,6 @@ namespace E_Commerce.DTOs.ViewModels.Product
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
         [Required(ErrorMessage = $"O campo {nameof(CategoryId)} é obrigatório")]
-        public long CategoryId { get; set; }
+        public int CategoryId { get; set; }
     }
 }

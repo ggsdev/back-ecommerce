@@ -26,6 +26,8 @@ using E_Commerce.Domain.Product.Stocks.Services;
 using E_Commerce.Domain.Product.SubCategories.Factories;
 using E_Commerce.Domain.Product.SubCategories.Interfaces;
 using E_Commerce.Domain.Product.SubCategories.Services;
+using E_Commerce.Domain.Purcharse.Orders.Entities;
+using E_Commerce.Domain.Purcharse.Orders.Validators;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -51,7 +53,6 @@ namespace E_Commerce.Domain
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IStockService, StockService>();
             services.AddScoped<IRatingService, RatingService>();
-
         }
 
         public static void RegisterFactories(IServiceCollection services)
@@ -64,13 +65,12 @@ namespace E_Commerce.Domain
             services.AddScoped<IImageFactory, ImageFactory>();
             services.AddScoped<IStockFactory, StockFactory>();
             services.AddScoped<IRatingFactory, RatingFactory>();
-
-
         }
 
         public static void RegisterValidators(IServiceCollection services)
         {
             services.AddTransient<IValidator<User>, UserValidator>();
+            services.AddTransient<IValidator<OrderItems>, OrderItemsValidator>();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace E_Commerce.Tests.Users
             var createdUser = new User();
 
             var addressDto = new AddressDto(
-                _fixture.Faker.Random.Long(),
+                _fixture.Faker.Random.int(),
                 _fixture.Faker.Date.Past(),
                 _fixture.Faker.Date.Future(),
                 _fixture.Faker.Address.StreetName(),
@@ -38,7 +38,7 @@ namespace E_Commerce.Tests.Users
             );
 
             var infoDto = new InfoDto(
-                _fixture.Faker.Random.Long(),
+                _fixture.Faker.Random.int(),
                 _fixture.Faker.Date.Past(),
                 _fixture.Faker.Date.Future(),
                 _fixture.Faker.Phone.PhoneNumber(),
@@ -47,7 +47,7 @@ namespace E_Commerce.Tests.Users
             );
 
             var userDto = new UserDto(
-                _fixture.Faker.Random.Long(),
+                _fixture.Faker.Random.int(),
                 _fixture.Faker.Date.Past(),
                 _fixture.Faker.Date.Future(),
                 _fixture.Faker.Name.FirstName(),

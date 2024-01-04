@@ -3,7 +3,7 @@
 namespace E_Commerce.DTOs.DTOs
 {
     public record StockDto(
-        long Id,
+        int Id,
         string CreatedAt,
         string? UpdatedAt
 

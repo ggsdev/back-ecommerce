@@ -3,7 +3,7 @@
 namespace E_Commerce.DTOs.DTOs
 {
     public record AddressDto(
-        long Id,
+        int Id,
         string CreatedAt,
         string? UpdatedAt,
         string Street,

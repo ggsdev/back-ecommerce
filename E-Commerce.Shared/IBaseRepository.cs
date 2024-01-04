@@ -7,8 +7,8 @@
         void Delete(T entity);
         Task Save();
         Task<List<T>> GetAllClean();
-        Task<T?> GetByIdClean(long id);
-        Task<bool> AnyById(long id);
+        Task<T?> GetByIdClean(int id);
+        Task<bool> AnyById(int id);
         Task AddRange(List<T> entities);
         void UpdateRange(List<T> entities);
         void DeleteRange(List<T> entities);

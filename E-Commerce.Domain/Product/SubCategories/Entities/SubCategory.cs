@@ -10,6 +10,6 @@ namespace E_Commerce.Domain.Product.SubCategories.Entities
         public string? Description { get; set; }
         public Category Category { get; set; } = null!;
         [ForeignKey(nameof(Category))]
-        public long CategoryId { get; set; }
+        public int CategoryId { get; set; }
     }
 }

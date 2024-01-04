@@ -33,7 +33,7 @@ namespace E_Commerce.Domain.Product.Categories.Services
             return categoryDto;
         }
 
-        public async Task DeleteCategory(long id, User loggedUser)
+        public async Task DeleteCategory(int id, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
                 throw new Exception("User not admin");
@@ -48,7 +48,7 @@ namespace E_Commerce.Domain.Product.Categories.Services
             return;
         }
 
-        public async Task<CategoryDto> UpdateCategory(CreateUpdateCategoryViewModel viewModel, long id, User loggedUser)
+        public async Task<CategoryDto> UpdateCategory(CreateUpdateCategoryViewModel viewModel, int id, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
                 throw new Exception("User not admin");
@@ -83,7 +83,7 @@ namespace E_Commerce.Domain.Product.Categories.Services
 
             return paginatedData;
         }
-        public async Task<CategoryDto> GetCategoryById(long id)
+        public async Task<CategoryDto> GetCategoryById(int id)
         {
             var category = await _repository.GetByIdClean(id)
                 ?? throw new Exception("Category not found");

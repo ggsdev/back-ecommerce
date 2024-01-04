@@ -8,9 +8,9 @@ namespace E_Commerce.Domain.Product.SubCategories.Interfaces
     public interface ISubCategoryService
     {
         Task<SubCategoryDto> CreateSubCategory(CreateUpdateSubCategoryViewModel viewModel, User loggedUser);
-        Task<SubCategoryDto> UpdateSubCategory(long id, CreateUpdateSubCategoryViewModel viewModel, User loggedUser);
-        Task DeleteSubCategory(long id, User loggedUser);
-        Task<SubCategoryDto> GetSubCategoryById(long id);
+        Task<SubCategoryDto> UpdateSubCategory(int id, CreateUpdateSubCategoryViewModel viewModel, User loggedUser);
+        Task DeleteSubCategory(int id, User loggedUser);
+        Task<SubCategoryDto> GetSubCategoryById(int id);
         Task<PaginatedDataDTO<SubCategoryDto>> GetSubCategories(FilterQuery queryParams, string requestUrl);
     }
 }

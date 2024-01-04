@@ -42,7 +42,7 @@ namespace E_Commerce.Domain.Product.SubCategories.Services
             return categoryDto;
         }
 
-        public async Task DeleteSubCategory(long id, User loggedUser)
+        public async Task DeleteSubCategory(int id, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
                 throw new Exception(DomainMessages.UserNotAdmin);
@@ -70,7 +70,7 @@ namespace E_Commerce.Domain.Product.SubCategories.Services
             return paginatedData;
         }
 
-        public async Task<SubCategoryDto> GetSubCategoryById(long id)
+        public async Task<SubCategoryDto> GetSubCategoryById(int id)
         {
             var subCategory = await _repository.GetByIdClean(id)
                 ?? throw new Exception(DomainMessages.SubCategoryNotFound);
@@ -80,7 +80,7 @@ namespace E_Commerce.Domain.Product.SubCategories.Services
             return subCategoryDto;
         }
 
-        public async Task<SubCategoryDto> UpdateSubCategory(long id, CreateUpdateSubCategoryViewModel viewModel, User loggedUser)
+        public async Task<SubCategoryDto> UpdateSubCategory(int id, CreateUpdateSubCategoryViewModel viewModel, User loggedUser)
         {
             if (!loggedUser.IsAdmin)
                 throw new Exception(DomainMessages.UserNotAdmin);

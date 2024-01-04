@@ -31,7 +31,7 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
             return userDto;
         }
 
-        public async Task DeleteUser(long id, User loggedUser)
+        public async Task DeleteUser(int id, User loggedUser)
         {
             if (loggedUser.IsAdmin is false)
                 throw new Exception(DomainMessages.UserNotAdmin);
@@ -62,7 +62,7 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
             return paginatedData;
         }
 
-        public async Task<UserDto> GetUserById(long id, User loggedUser)
+        public async Task<UserDto> GetUserById(int id, User loggedUser)
         {
             if (loggedUser.IsAdmin is false && loggedUser.Id != id)
                 throw new Exception(DomainMessages.UserNotAdmin);
@@ -75,7 +75,7 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
             return userDto;
         }
 
-        public async Task<UserDto> UpdateUser(UpdateUserViewModel body, long id, User loggedUser)
+        public async Task<UserDto> UpdateUser(UpdateUserViewModel body, int id, User loggedUser)
         {
             if (loggedUser.IsAdmin is false && loggedUser.Id != id)
                 throw new Exception(DomainMessages.UserNotAdmin);

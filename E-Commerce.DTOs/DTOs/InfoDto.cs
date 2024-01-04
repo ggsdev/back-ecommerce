@@ -3,7 +3,7 @@
 namespace E_Commerce.DTOs.DTOs
 {
     public record InfoDto(
-        long Id,
+        int Id,
         string CreatedAt,
         string? UpdatedAt,
         string Cellphone,

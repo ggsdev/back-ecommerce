@@ -5,9 +5,9 @@ namespace E_Commerce.Domain.Product.Items.Interfaces
 {
     public interface IItemRepository : IBaseRepository<Item>
     {
-        Task<bool> AnyByName(string name, long? id = null);
+        Task<bool> AnyByName(string name, int? id = null);
 
-        Task<Item?> GetById(long id);
+        Task<Item?> GetById(int id);
         Task<List<Item>> GetAll(FilterQuery queryParams, CancellationToken ct);
     }
 }

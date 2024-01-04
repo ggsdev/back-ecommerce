@@ -10,7 +10,7 @@ namespace E_Commerce.Domain.Product.Images.Entites
         public string? Description { get; set; }
         public byte[] ImageContent { get; set; } = null!;
         [ForeignKey(nameof(Item))]
-        public long ItemId { get; set; }
+        public int ItemId { get; set; }
         public Item Item { get; set; } = null!;
         public bool IsShowCase { get; set; } //vitrine do produto
     }

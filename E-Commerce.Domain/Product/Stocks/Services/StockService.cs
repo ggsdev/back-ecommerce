@@ -21,7 +21,7 @@ namespace E_Commerce.Domain.Product.Stocks.Services
             return createdStock;
         }
 
-        public async Task UpdateStock(CreateUpdateStockViewModel createUpdateStockViewModel, long id)
+        public async Task UpdateStock(CreateUpdateStockViewModel createUpdateStockViewModel, int id)
         {
             var stock = await _repository.GetByIdClean(id)
                 ?? throw new Exception("Not found");

@@ -28,7 +28,7 @@ namespace E_Commerce.Domain.ControlAccess.Infos.Services
             return createdInfo;
         }
 
-        public async Task<AddressDto> UpdateAddress(CreateUpdateAddressViewModel addressViewModel, long addressId)
+        public async Task<AddressDto> UpdateAddress(CreateUpdateAddressViewModel addressViewModel, int addressId)
         {
             var addressInDatabase = await _repository.GetAddressById(addressId)
                 ?? throw new Exception("Address not found");
