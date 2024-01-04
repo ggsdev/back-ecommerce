@@ -1,8 +1,8 @@
 ﻿using E_Commerce.Api._Base.Filters;
-using E_Commerce.Shared;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Items.Interfaces;
 using E_Commerce.DTOs.ViewModels.Product;
+using E_Commerce.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +28,7 @@ namespace E_Commerce.Api.Controllers
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<IActionResult> Get(long id)
+        public async Task<IActionResult> Get(int id)
         {
             var data = await _service.GetItemById(id);
 
@@ -46,7 +46,7 @@ namespace E_Commerce.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, [FromBody] CreateUpdateItemViewModel body, CancellationToken ct)
+        public async Task<IActionResult> Put(int id, [FromBody] CreateUpdateItemViewModel body, CancellationToken ct)
         {
             var loggedUser = HttpContext.Items["User"] as User;
 
@@ -56,7 +56,7 @@ namespace E_Commerce.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id, CancellationToken ct)
+        public async Task<IActionResult> Delete(int id, CancellationToken ct)
         {
             var loggedUser = HttpContext.Items["User"] as User;
 

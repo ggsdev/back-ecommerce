@@ -15,7 +15,7 @@ namespace E_Commerce.Api._Base.Middlewares
             {
                 var userIdClaim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-                if (userIdClaim is not null && long.TryParse(userIdClaim.Value, out long userId))
+                if (userIdClaim is not null && int.TryParse(userIdClaim.Value, out int userId))
                 {
                     context.Items["Id"] = userId;
                 }

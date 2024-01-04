@@ -8,20 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Purcharse\OrdersItems\**" />
+    <EmbeddedResource Remove="Purcharse\OrdersItems\**" />
+    <None Remove="Purcharse\OrdersItems\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\E-Commerce.Domain\E-Commerce.Domain.csproj" />
     <ProjectReference Include="..\E-Commerce.Shared\E-Commerce.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Product\Ratings\Mappings\" />
-    <Folder Include="Payment\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Purcharse\Emails\Mappings\" />
     <Folder Include="Purcharse\Emails\Repositories\" />
-    <Folder Include="Purcharse\OrdersItems\Mappings\" />
-    <Folder Include="Purcharse\OrdersItems\Repositories\" />
-    <Folder Include="Purcharse\Orders\Mappings\" />
     <Folder Include="Purcharse\Orders\Repositories\" />
-    <Folder Include="Purcharse\Status\Mappings\" />
     <Folder Include="Purcharse\Status\Repositories\" />
   </ItemGroup>
 

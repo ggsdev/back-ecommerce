@@ -8,7 +8,8 @@ namespace E_Commerce.DTOs.ViewModels.Product
         [StringLength(120, ErrorMessage = "120 caracteres")]
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
-        public string? Image { get; set; }
+        [Base64String(ErrorMessage = "Imagem inválida.")]
+        public string? MainImage { get; set; }
         [Required(ErrorMessage = $"O campo {nameof(Price)} é obrigatório.")]
         public decimal Price { get; set; }
         [Required(ErrorMessage = $"O campo {nameof(SubCategoryId)} é obrigatório.")]

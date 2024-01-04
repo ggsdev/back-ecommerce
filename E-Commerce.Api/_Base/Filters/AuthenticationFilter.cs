@@ -11,9 +11,9 @@ namespace E_Commerce.Api._Base.Filters
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var userId = context.HttpContext.Items["Id"] as long?;
+            var userId = context.HttpContext.Items["Id"] as int?;
 
-            if (userId is long)
+            if (userId is int)
             {
                 var user = await _context.Users
                     .FirstOrDefaultAsync(x => x.Id == userId);

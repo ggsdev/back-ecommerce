@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Purcharse\OrdersItems\**" />
+    <EmbeddedResource Remove="Purcharse\OrdersItems\**" />
+    <None Remove="Purcharse\OrdersItems\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\E-Commerce.DTOs\E-Commerce.DTOs.csproj" />
     <ProjectReference Include="..\E-Commerce.Shared\E-Commerce.Shared.csproj" />
   </ItemGroup>
@@ -16,15 +22,10 @@
     <Folder Include="Purcharse\Emails\Entities\" />
     <Folder Include="Purcharse\Emails\Interfaces\" />
     <Folder Include="Purcharse\Emails\Services\" />
-    <Folder Include="Purcharse\OrdersItems\Entities\" />
-    <Folder Include="Purcharse\OrdersItems\Interfaces\" />
-    <Folder Include="Purcharse\OrdersItems\Services\" />
-    <Folder Include="Purcharse\Orders\Entities\" />
     <Folder Include="Purcharse\Orders\Interfaces\" />
     <Folder Include="Purcharse\Orders\Services\" />
-    <Folder Include="Payment\" />
-    <Folder Include="Purcharse\Status\Interfaces\" />
-    <Folder Include="Purcharse\Status\Services\" />
+    <Folder Include="Purcharse\StatusOrder\Interfaces\" />
+    <Folder Include="Purcharse\StatusOrder\Services\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -30,6 +30,7 @@ namespace E_Commerce.Infra.Data.Product.Items.Repositories
 
             if (string.IsNullOrEmpty(cachedMember))
             {
+                Console.WriteLine("cache");
                 IQueryable<Item> query = _context.Items;
 
                 if (!string.IsNullOrWhiteSpace(paramQuery.Search))
