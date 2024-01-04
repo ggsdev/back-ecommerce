@@ -1,19 +1,19 @@
 ﻿using AutoMapper;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
+using E_Commerce.Domain.Product.Categories.Interfaces;
 using E_Commerce.Domain.Product.Images.Interfaces;
 using E_Commerce.Domain.Product.Items.Interfaces;
 using E_Commerce.Domain.Product.Stocks.Interfaces;
-using E_Commerce.Domain.Product.SubCategories.Interfaces;
 using E_Commerce.DTOs.DTOs;
 using E_Commerce.DTOs.ViewModels.Product;
 using E_Commerce.Shared;
 
 namespace E_Commerce.Domain.Product.Items.Services
 {
-    internal class ItemService(IItemRepository itemRepository, IItemFactory itemFactory, IMapper mapper, IImageService imageService, ISubCategoryRepository subCategoryRepository, IStockService stockService) : IItemService
+    internal class ItemService(IItemRepository itemRepository, IItemFactory itemFactory, IMapper mapper, IImageService imageService, ICategoryRepository subCategoryRepository, IStockService stockService) : IItemService
     {
         private readonly IItemRepository _repository = itemRepository;
-        private readonly ISubCategoryRepository _subCategoryRepository = subCategoryRepository;
+        private readonly ICategoryRepository _subCategoryRepository = subCategoryRepository;
         private readonly IStockService _stockService = stockService;
         private readonly IItemFactory _factory = itemFactory;
         private readonly IMapper _mapper = mapper;
@@ -29,7 +29,7 @@ namespace E_Commerce.Domain.Product.Items.Services
             if (anyInDatabase)
                 throw new Exception("Already registered in database");
 
-            var subCategoryInDatabase = await _subCategoryRepository.GetByIdClean(viewModel.SubCategoryId!.Value)
+            var subCategoryInDatabase = await _subCategoryRepository.GetSubCategory(viewModel.SubCategoryId!.Value)
                 ?? throw new Exception("SubCategory not found");
 
             var createdStock = await _stockService.CreateStock(viewModel.Stock);

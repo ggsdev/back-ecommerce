@@ -9,7 +9,7 @@ namespace E_Commerce.Infra.Data.Payment.PaymentMethods.Mappings
     {
         public void Configure(EntityTypeBuilder<PaymentMethod> builder)
         {
-            builder.ToTable(nameof(PaymentMethods), Constants.PREFIX_PAYMENT);
+            builder.ToTable(nameof(PaymentMethod), Constants.PREFIX_PAYMENT);
 
             builder.HasKey(x => x.Id);
 

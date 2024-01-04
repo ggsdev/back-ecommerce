@@ -29,6 +29,11 @@ namespace E_Commerce.Infra.Data.Product.Categories.Mappings
 
             builder.Property(x => x.Image)
                 .HasColumnType("varbinary(max)");
+
+            builder.HasOne(c => c.ParentCategory)
+               .WithMany(c => c.SubCategories)
+               .HasForeignKey(c => c.ParentCategoryId)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

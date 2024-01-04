@@ -1,7 +1,7 @@
-﻿using E_Commerce.Domain.Product.Images.Entites;
+﻿using E_Commerce.Domain.Product.Categories.Entities;
+using E_Commerce.Domain.Product.Images.Entites;
 using E_Commerce.Domain.Product.Items.Entities;
 using E_Commerce.Domain.Product.Items.Interfaces;
-using E_Commerce.Domain.Product.SubCategories.Entities;
 using E_Commerce.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
@@ -30,7 +30,6 @@ namespace E_Commerce.Infra.Data.Product.Items.Repositories
 
             if (string.IsNullOrEmpty(cachedMember))
             {
-                Console.WriteLine("cache");
                 IQueryable<Item> query = _context.Items;
 
                 if (!string.IsNullOrWhiteSpace(paramQuery.Search))
@@ -62,10 +61,11 @@ namespace E_Commerce.Infra.Data.Product.Items.Repositories
                         CreatedAt = x.CreatedAt,
                         UpdatedAt = x.UpdatedAt,
                         Description = x.Description,
-                        SubCategory = new SubCategory
+                        SubCategory = new Category
                         {
                             Id = x.SubCategory.Id,
                             Name = x.SubCategory.Name,
+                            Image = x.SubCategory.Image,
                         },
                         Images = x.Images.Select(i => new Image
                         {
@@ -118,10 +118,17 @@ namespace E_Commerce.Infra.Data.Product.Items.Repositories
                     CreatedAt = x.CreatedAt,
                     UpdatedAt = x.UpdatedAt,
                     Description = x.Description,
-                    SubCategory = new SubCategory
+                    SubCategory = new Category
                     {
                         Id = x.SubCategory.Id,
                         Name = x.SubCategory.Name,
+                        Image = x.SubCategory.Image,
+
+                        ParentCategory = new Category
+                        {
+                            Id = x.SubCategory.ParentCategory!.Id,
+                            Name = x.SubCategory.ParentCategory!.Name,
+                        }
                     },
                     Images = x.Images.Select(i => new Image
                     {

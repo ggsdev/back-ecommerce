@@ -6,7 +6,6 @@ using E_Commerce.Domain.Product.Categories.Entities;
 using E_Commerce.Domain.Product.Items.Entities;
 using E_Commerce.Domain.Product.Ratings.Entities;
 using E_Commerce.Domain.Product.Stocks.Entities;
-using E_Commerce.Domain.Product.SubCategories.Entities;
 using E_Commerce.DTOs.DTOs;
 
 namespace E_Commerce.Infra.IoC
@@ -29,13 +28,11 @@ namespace E_Commerce.Infra.IoC
 
             CreateMap<Category, CategoryDto>()
                 .ForMember(x => x.CreatedAt, x => x.MapFrom(y => y.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")))
-                .ForMember(x => x.UpdatedAt, x => x.MapFrom(y => y.UpdatedAt != null ? y.UpdatedAt.Value.ToString("dd/MM/yyyy HH:mm:ss") : null));
+                .ForMember(x => x.UpdatedAt, x => x.MapFrom(y => y.UpdatedAt != null ? y.UpdatedAt.Value.ToString("dd/MM/yyyy HH:mm:ss") : null))
+                .ForMember(dto => dto.SubCategories, conf => conf.Condition(entity => entity.IsParent && !entity.ParentCategoryId.HasValue))
+                .ForMember(dto => dto.SubCategories, conf => conf.MapFrom(entity => entity.SubCategories));
 
             CreateMap<Item, ItemDto>()
-                .ForMember(x => x.CreatedAt, x => x.MapFrom(y => y.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")))
-                .ForMember(x => x.UpdatedAt, x => x.MapFrom(y => y.UpdatedAt != null ? y.UpdatedAt.Value.ToString("dd/MM/yyyy HH:mm:ss") : null));
-
-            CreateMap<SubCategory, SubCategoryDto>()
                 .ForMember(x => x.CreatedAt, x => x.MapFrom(y => y.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")))
                 .ForMember(x => x.UpdatedAt, x => x.MapFrom(y => y.UpdatedAt != null ? y.UpdatedAt.Value.ToString("dd/MM/yyyy HH:mm:ss") : null));
 

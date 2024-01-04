@@ -42,6 +42,7 @@ namespace E_Commerce.Infra.Data.Product.Categories.Repositories
             }
 
             return await query
+                .Include(x => x.SubCategories)
                 .Select(x => new Category
                 {
                     Id = x.Id,
@@ -49,7 +50,13 @@ namespace E_Commerce.Infra.Data.Product.Categories.Repositories
                     CreatedAt = x.CreatedAt,
                     UpdatedAt = x.UpdatedAt,
                     Description = x.Description,
-                    Image = x.Image
+                    Image = x.Image,
+                    SubCategories = x.SubCategories != null ? x.SubCategories
+                    .Select(x => new Category
+                    {
+                        Id = x.Id,
+                        Name = x.Name
+                    }).ToList() : null,
                 })
                 .AsNoTracking()
                 .Skip((paramQuery.PageNumber - 1) * paramQuery.PageSize)
@@ -66,6 +73,13 @@ namespace E_Commerce.Infra.Data.Product.Categories.Repositories
             };
 
             return keySelector;
+        }
+
+        public async Task<Category?> GetSubCategory(int id)
+        {
+            return await _context.Categories
+                .Where(x => x.Id.Equals(id) && !x.IsParent)
+                .FirstOrDefaultAsync();
         }
     }
 }

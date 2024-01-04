@@ -23,11 +23,10 @@ using E_Commerce.Domain.Product.Ratings.Services;
 using E_Commerce.Domain.Product.Stocks.Factories;
 using E_Commerce.Domain.Product.Stocks.Interfaces;
 using E_Commerce.Domain.Product.Stocks.Services;
-using E_Commerce.Domain.Product.SubCategories.Factories;
-using E_Commerce.Domain.Product.SubCategories.Interfaces;
-using E_Commerce.Domain.Product.SubCategories.Services;
 using E_Commerce.Domain.Purcharse.Orders.Entities;
 using E_Commerce.Domain.Purcharse.Orders.Validators;
+using E_Commerce.DTOs.Validators;
+using E_Commerce.DTOs.ViewModels.Product;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -48,7 +47,6 @@ namespace E_Commerce.Domain
             services.AddScoped<IInfoService, InfoService>();
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IStockService, StockService>();
@@ -59,7 +57,6 @@ namespace E_Commerce.Domain
         {
             services.AddScoped<IUserFactory, UserFactory>();
             services.AddScoped<IInfoFactory, InfoFactory>();
-            services.AddScoped<ISubCategoryFactory, SubCategoryFactory>();
             services.AddScoped<ICategoryFactory, CategoryFactory>();
             services.AddScoped<IItemFactory, ItemFactory>();
             services.AddScoped<IImageFactory, ImageFactory>();
@@ -71,6 +68,10 @@ namespace E_Commerce.Domain
         {
             services.AddTransient<IValidator<User>, UserValidator>();
             services.AddTransient<IValidator<OrderItems>, OrderItemsValidator>();
+
+            #region viewModel validators
+            services.AddTransient<IValidator<CreateUpdateCategoryViewModel>, CreateUpdateCategoryViewModelValidator>();
+            #endregion
         }
     }
 }

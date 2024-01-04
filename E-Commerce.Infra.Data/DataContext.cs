@@ -5,7 +5,6 @@ using E_Commerce.Domain.Product.Categories.Entities;
 using E_Commerce.Domain.Product.Images.Entites;
 using E_Commerce.Domain.Product.Items.Entities;
 using E_Commerce.Domain.Product.Stocks.Entities;
-using E_Commerce.Domain.Product.SubCategories.Entities;
 using E_Commerce.Domain.Purcharse.Orders.Entities;
 using E_Commerce.Domain.Purcharse.Status.Entities;
 using E_Commerce.Infra.Data.ControlAccess.Infos.Mappings;
@@ -17,7 +16,6 @@ using E_Commerce.Infra.Data.Product.Images.Mappings;
 using E_Commerce.Infra.Data.Product.Items.Mappings;
 using E_Commerce.Infra.Data.Product.Ratings.Mappings;
 using E_Commerce.Infra.Data.Product.Stocks.Mappings;
-using E_Commerce.Infra.Data.Product.SubCategories.Mappings;
 using E_Commerce.Infra.Data.Purcharse.Orders.Mappings;
 using E_Commerce.Infra.Data.Purcharse.Status.Mappings;
 using E_Commerce.Shared;
@@ -36,7 +34,6 @@ namespace E_Commerce.Infra.Data
         public DbSet<Info> Infos { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Stock> Stocks { get; set; }
@@ -95,7 +92,6 @@ namespace E_Commerce.Infra.Data
         private static void CreateProductMap(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryMap());
-            modelBuilder.ApplyConfiguration(new SubCategoryMap());
             modelBuilder.ApplyConfiguration(new ImageMap());
             modelBuilder.ApplyConfiguration(new ItemMap());
             modelBuilder.ApplyConfiguration(new StockMap());

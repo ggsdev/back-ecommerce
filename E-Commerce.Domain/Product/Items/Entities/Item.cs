@@ -1,7 +1,7 @@
-﻿using E_Commerce.Domain.Product.Images.Entites;
+﻿using E_Commerce.Domain.Product.Categories.Entities;
+using E_Commerce.Domain.Product.Images.Entites;
 using E_Commerce.Domain.Product.Ratings.Entities;
 using E_Commerce.Domain.Product.Stocks.Entities;
-using E_Commerce.Domain.Product.SubCategories.Entities;
 using E_Commerce.Domain.Purcharse.Orders.Entities;
 using E_Commerce.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,7 +16,7 @@ namespace E_Commerce.Domain.Product.Items.Entities
         public List<Image> Images { get; set; } = [];
         [ForeignKey(nameof(SubCategory))]
         public int SubCategoryId { get; set; }
-        public SubCategory SubCategory { get; set; } = null!;
+        public Category SubCategory { get; set; } = null!;
 
         [ForeignKey(nameof(Stock))]
         public int StockId { get; set; }

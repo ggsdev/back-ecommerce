@@ -6,8 +6,10 @@ namespace E_Commerce.DTOs.DTOs
         int Id,
         string CreatedAt,
         string? UpdatedAt,
+        bool IsParent,
         string Name,
         string? Description,
-        string? Image
+        byte[]? Image,
+        List<CategoryDto> SubCategories
     ) : BaseDto(Id, CreatedAt, UpdatedAt);
 }

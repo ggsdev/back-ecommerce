@@ -7,7 +7,7 @@ namespace E_Commerce.DTOs.DTOs
         string Name,
         decimal Price,
         string? Description,
-        SubCategoryDto SubCategory,
+        CategoryDto SubCategory,
         StockDto Stock,
         string CreatedAt,
         string? UpdatedAt
