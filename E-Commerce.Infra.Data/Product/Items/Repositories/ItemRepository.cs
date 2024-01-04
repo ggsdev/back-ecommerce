@@ -15,7 +15,7 @@ namespace E_Commerce.Infra.Data.Product.Items.Repositories
         private readonly IDistributedCache _cache = cache;
         private readonly DataContext _context = context;
 
-        public async Task<bool> AnyByName(string name, long? id = null)
+        public async Task<bool> AnyByName(string name, int? id = null)
         {
             return await _context.Items
                 .Where(product => EF.Functions.Like(product.Name, name) && product.Id != id)
@@ -77,7 +77,7 @@ namespace E_Commerce.Infra.Data.Product.Items.Repositories
                     .AsNoTracking()
                     .Skip((paramQuery.PageNumber - 1) * paramQuery.PageSize)
                     .Take(paramQuery.PageSize)
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken: ct);
 
                 await _cache.SetStringAsync(
                     key,
@@ -102,7 +102,7 @@ namespace E_Commerce.Infra.Data.Product.Items.Repositories
             return keySelector;
         }
 
-        public async Task<Item?> GetById(long id)
+        public async Task<Item?> GetById(int id)
         {
             return await _context.Items
                 .Include(item => item.SubCategory)

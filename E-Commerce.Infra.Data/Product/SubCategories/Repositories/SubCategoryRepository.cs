@@ -9,7 +9,7 @@ namespace E_Commerce.Infra.Data.Product.SubCategories.Repositories
     internal class SubCategoryRepository(DataContext context) : BaseRepository<SubCategory>(context), ISubCategoryRepository
     {
         private readonly DataContext _context = context;
-        public async Task<bool> AnyByName(string name, long? id = null)
+        public async Task<bool> AnyByName(string name, int? id = null)
         {
             return await _context.SubCategories
                     .Where(category => EF.Functions.Like(category.Name, name) && category.Id != id)

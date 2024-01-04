@@ -1,5 +1,5 @@
-﻿using E_Commerce.Shared;
-using E_Commerce.Domain.Product.SubCategories.Entities;
+﻿using E_Commerce.Domain.Product.SubCategories.Entities;
+using E_Commerce.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,14 +21,14 @@ namespace E_Commerce.Infra.Data.Product.SubCategories.Mappings
                 .HasMaxLength(120);
 
             builder.Property(x => x.Description)
-                .HasColumnType("text");
+                .HasColumnType("varchar")
+                .HasMaxLength(200);
 
             builder.HasIndex(builder => builder.Name)
                 .IsUnique();
 
             builder.HasOne(x => x.Category)
                 .WithMany(x => x.SubCategories)
-                .HasForeignKey(x => x.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

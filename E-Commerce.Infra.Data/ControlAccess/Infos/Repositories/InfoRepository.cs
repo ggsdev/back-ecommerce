@@ -8,7 +8,7 @@ namespace E_Commerce.Infra.Data.ControlAccess.Infos.Repositories
     {
         private readonly DataContext _context = context;
 
-        public async Task<bool> AnyByEmailOrCellphone(string email, string cellphone, long? id = null)
+        public async Task<bool> AnyByEmailOrCellphone(string email, string cellphone, int? id = null)
         {
             return await _context.Users
                 .Select(x => new
@@ -23,7 +23,7 @@ namespace E_Commerce.Infra.Data.ControlAccess.Infos.Repositories
                .AnyAsync();
         }
 
-        public async Task<Address?> GetAddressById(long addressId)
+        public async Task<Address?> GetAddressById(int addressId)
         {
             return await _context.Addresses
                 .FirstOrDefaultAsync(x => x.Id == addressId);

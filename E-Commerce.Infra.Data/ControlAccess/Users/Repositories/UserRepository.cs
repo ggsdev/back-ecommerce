@@ -65,7 +65,7 @@ namespace E_Commerce.Infra.Data.ControlAccess.Users.Repositories
                 .ToListAsync();
         }
 
-        public async Task<User?> GetById(long id)
+        public async Task<User?> GetById(int id)
         {
             return await _context
                 .Users

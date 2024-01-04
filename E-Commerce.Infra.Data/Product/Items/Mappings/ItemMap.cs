@@ -1,5 +1,5 @@
-﻿using E_Commerce.Shared;
-using E_Commerce.Domain.Product.Items.Entities;
+﻿using E_Commerce.Domain.Product.Items.Entities;
+using E_Commerce.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,7 +21,8 @@ namespace E_Commerce.Infra.Data.Product.Items.Mappings
                 .HasMaxLength(120);
 
             builder.Property(x => x.Description)
-                .HasColumnType("text");
+                .HasColumnType("varchar")
+                .HasMaxLength(200);
 
             builder.Property(x => x.Price)
                 .HasColumnType("decimal")

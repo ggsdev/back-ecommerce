@@ -1,5 +1,4 @@
-﻿using E_Commerce.Shared;
-using E_Commerce.Domain.ControlAccess.Infos.Entities;
+﻿using E_Commerce.Domain.ControlAccess.Infos.Entities;
 using E_Commerce.Domain.ControlAccess.Sessions.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Categories.Entities;
@@ -7,14 +6,21 @@ using E_Commerce.Domain.Product.Images.Entites;
 using E_Commerce.Domain.Product.Items.Entities;
 using E_Commerce.Domain.Product.Stocks.Entities;
 using E_Commerce.Domain.Product.SubCategories.Entities;
+using E_Commerce.Domain.Purcharse.Orders.Entities;
+using E_Commerce.Domain.Purcharse.Status.Entities;
 using E_Commerce.Infra.Data.ControlAccess.Infos.Mappings;
 using E_Commerce.Infra.Data.ControlAccess.Sessions.Mappings;
 using E_Commerce.Infra.Data.ControlAccess.Users.Mappings;
+using E_Commerce.Infra.Data.Payment.PaymentMethods.Mappings;
 using E_Commerce.Infra.Data.Product.Categories.Mappings;
 using E_Commerce.Infra.Data.Product.Images.Mappings;
 using E_Commerce.Infra.Data.Product.Items.Mappings;
+using E_Commerce.Infra.Data.Product.Ratings.Mappings;
 using E_Commerce.Infra.Data.Product.Stocks.Mappings;
 using E_Commerce.Infra.Data.Product.SubCategories.Mappings;
+using E_Commerce.Infra.Data.Purcharse.Orders.Mappings;
+using E_Commerce.Infra.Data.Purcharse.Status.Mappings;
+using E_Commerce.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
@@ -34,6 +40,9 @@ namespace E_Commerce.Infra.Data
         public DbSet<Image> Images { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItems> OrderItems { get; set; }
+        public DbSet<StatusOrder> StatusOrder { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -68,6 +77,8 @@ namespace E_Commerce.Infra.Data
         {
             CreateAccessControlMap(modelBuilder);
             CreateProductMap(modelBuilder);
+            CreatePurcharseMap(modelBuilder);
+            CreatePaymentMap(modelBuilder);
         }
 
         private static void CreateAccessControlMap(ModelBuilder modelBuilder)
@@ -85,6 +96,19 @@ namespace E_Commerce.Infra.Data
             modelBuilder.ApplyConfiguration(new ImageMap());
             modelBuilder.ApplyConfiguration(new ItemMap());
             modelBuilder.ApplyConfiguration(new StockMap());
+            modelBuilder.ApplyConfiguration(new RatingMap());
+        }
+
+        private static void CreatePaymentMap(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new PaymentMethodMap());
+        }
+
+        private static void CreatePurcharseMap(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new OrderMap());
+            modelBuilder.ApplyConfiguration(new OrderItemsMap());
+            modelBuilder.ApplyConfiguration(new StatusOrderMap());
         }
 
         private static readonly ILoggerFactory MyLoggerFactory

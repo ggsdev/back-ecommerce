@@ -11,7 +11,7 @@ namespace E_Commerce.Infra.Data
         {
             await _context.AddAsync(entity);
         }
-        public async Task<bool> AnyById(long id)
+        public async Task<bool> AnyById(int id)
         {
             return await _context
                 .Set<T>()
@@ -53,7 +53,7 @@ namespace E_Commerce.Infra.Data
                     .Set<T>()
                     .ToListAsync();
         }
-        public async Task<T?> GetByIdClean(long id)
+        public async Task<T?> GetByIdClean(int id)
         {
             return await _context
                     .Set<T>()

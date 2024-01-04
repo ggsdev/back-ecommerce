@@ -4,6 +4,7 @@ using E_Commerce.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Commerce.Infra.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240104131145_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -321,7 +324,7 @@ namespace E_Commerce.Infra.Data.Migrations
                         .HasColumnType("varchar");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(18, 2)
+                        .HasPrecision(12, 2)
                         .HasColumnType("decimal");
 
                     b.Property<int>("StockId")
@@ -499,7 +502,7 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.HasIndex("StatusOrderId")
                         .IsUnique();
 
-                    b.ToTable("Purcharse.Orders", (string)null);
+                    b.ToTable("Product.Orders", (string)null);
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.Purcharse.Orders.Entities.OrderItems", b =>
@@ -541,7 +544,7 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Purcharse.OrderItemss", (string)null);
+                    b.ToTable("Product.OrderItemss", (string)null);
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.Purcharse.Status.Entities.StatusOrder", b =>
@@ -567,7 +570,7 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Purcharse.StatusOrders", (string)null);
+                    b.ToTable("StatusOrder");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Infos.Entities.Info", b =>
