@@ -2,17 +2,21 @@
 {
     public static class Constants
     {
-        public static readonly string PREFIXCONTROLACCESS = "ControlAccess";
-        public static readonly string PREFIXPRODUCT = "Product";
-        public static readonly string PREFIXPURCHARSE = "Purcharse";
-        public static readonly string PREFIXPAYMENT = "Payment";
+        public const string PREFIX_CONTROL_ACCESS = "ControlAccess";
+        public const string PREFIX_PRODUCT = "Product";
+        public const string PREFIX_PURCHARSE = "Purcharse";
+        public const string PREFIX_PAYMENT = "Payment";
 
-        public static readonly short PRICEPRECISION = 18;
-        public static readonly short PRICESCALE = 2;
+        public const short PRICE_PRECISION = 18;
+        public const short PRICE_SCALE = 2;
 
-        public static readonly string DESCSORTORDER = "desc";
-        public static readonly string ASCSORTORDER = "asc";
+        public const string DESC_SORT_ORDER = "desc";
+        public const string ASC_SORT_ORDER = "asc";
 
-        public const string ApiPrefixFirstVersion = "v1/api";
+        public const string API_PREFIX_FIRST_VERSION = "v1/api";
+
+        public const string MIGRATIONS_HISTORY_TABLE_NAME = "MigrationsHistory";
+        public const string PREFIX_SYSTEM = "System";
     }
+
 }

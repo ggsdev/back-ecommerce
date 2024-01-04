@@ -9,7 +9,7 @@ namespace E_Commerce.Infra.Data.Product.Items.Mappings
     {
         public void Configure(EntityTypeBuilder<Item> builder)
         {
-            builder.ToTable(GlobalUtils.FormatTableName(Constants.PREFIXPRODUCT, nameof(Item)));
+            builder.ToTable(nameof(Item), Constants.PREFIX_PRODUCT);
 
             builder.HasKey(x => x.Id);
 
@@ -26,7 +26,7 @@ namespace E_Commerce.Infra.Data.Product.Items.Mappings
 
             builder.Property(x => x.Price)
                 .HasColumnType("decimal")
-                .HasPrecision(Constants.PRICEPRECISION, Constants.PRICESCALE);
+                .HasPrecision(Constants.PRICE_PRECISION, Constants.PRICE_SCALE);
 
             builder.HasIndex(builder => builder.Name)
                 .IsUnique();

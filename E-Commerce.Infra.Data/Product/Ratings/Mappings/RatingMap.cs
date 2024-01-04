@@ -9,7 +9,7 @@ namespace E_Commerce.Infra.Data.Product.Ratings.Mappings
     {
         public void Configure(EntityTypeBuilder<Rating> builder)
         {
-            builder.ToTable(GlobalUtils.FormatTableName(Constants.PREFIXPRODUCT, nameof(Rating)));
+            builder.ToTable(nameof(Rating), Constants.PREFIX_PRODUCT);
 
             builder.HasKey(x => x.Id);
 

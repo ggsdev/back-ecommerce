@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.Api.Controllers
 {
-    [Route(Constants.ApiPrefixFirstVersion + "/[controller]")]
+    [Route(Constants.API_PREFIX_FIRST_VERSION + "/[controller]")]
     [ServiceFilter(typeof(AuthenticationFilter))]
     public class UserController(IUserService service) : ControllerBase
     {
@@ -42,7 +42,7 @@ namespace E_Commerce.Api.Controllers
         {
             var data = await _service.CreateUser(body);
 
-            return Created($"{Constants.ApiPrefixFirstVersion}/User", data);
+            return Created($"{Constants.API_PREFIX_FIRST_VERSION}/User", data);
         }
 
         [HttpPut("{id}")]

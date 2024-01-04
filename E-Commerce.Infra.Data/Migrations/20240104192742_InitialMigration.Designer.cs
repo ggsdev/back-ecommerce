@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Commerce.Infra.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240104134250_ChangingPrefixPurcharse")]
-    partial class ChangingPrefixPurcharse
+    [Migration("20240104192742_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,7 +75,7 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ControlAccess.Addresss", (string)null);
+                    b.ToTable("Address", "ControlAccess");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Infos.Entities.Info", b =>
@@ -116,7 +116,7 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("ControlAccess.Infos", (string)null);
+                    b.ToTable("Info", "ControlAccess");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Sessions.Entities.Session", b =>
@@ -152,7 +152,7 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("ControlAccess.Sessions", (string)null);
+                    b.ToTable("Session", "ControlAccess");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Users.Entities.User", b =>
@@ -198,10 +198,10 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.HasIndex("InfoId")
                         .IsUnique();
 
-                    b.ToTable("ControlAccess.Users", (string)null);
+                    b.ToTable("User", "ControlAccess");
                 });
 
-            modelBuilder.Entity("E_Commerce.Domain.Payment.PaymentMethod.Entities.PaymentMethod", b =>
+            modelBuilder.Entity("E_Commerce.Domain.Payment.PaymentMethods.Entities.PaymentMethod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -213,7 +213,8 @@ namespace E_Commerce.Infra.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar");
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
@@ -226,7 +227,7 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PaymentMethod");
+                    b.ToTable("PaymentMethods", "Payment");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.Product.Categories.Entities.Category", b =>
@@ -260,7 +261,7 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Product.Categorys", (string)null);
+                    b.ToTable("Category", "Product");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.Product.Images.Entites.Image", b =>
@@ -300,7 +301,7 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Product.Images", (string)null);
+                    b.ToTable("Image", "Product");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.Product.Items.Entities.Item", b =>
@@ -346,7 +347,7 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     b.HasIndex("SubCategoryId");
 
-                    b.ToTable("Product.Items", (string)null);
+                    b.ToTable("Item", "Product");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.Product.Ratings.Entities.Rating", b =>
@@ -383,7 +384,7 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Product.Ratings", (string)null);
+                    b.ToTable("Rating", "Product");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.Product.Stocks.Entities.Stock", b =>
@@ -408,7 +409,7 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Product.Stocks", (string)null);
+                    b.ToTable("Stock", "Product");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.Product.SubCategories.Entities.SubCategory", b =>
@@ -444,7 +445,7 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Product.SubCategorys", (string)null);
+                    b.ToTable("SubCategory", "Product");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.Purcharse.Orders.Entities.Order", b =>
@@ -502,7 +503,7 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.HasIndex("StatusOrderId")
                         .IsUnique();
 
-                    b.ToTable("Product.Orders", (string)null);
+                    b.ToTable("Order", "Purcharse");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.Purcharse.Orders.Entities.OrderItems", b =>
@@ -544,7 +545,7 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Purcharse.OrderItemss", (string)null);
+                    b.ToTable("OrderItems", "Purcharse");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.Purcharse.Status.Entities.StatusOrder", b =>
@@ -570,7 +571,7 @@ namespace E_Commerce.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StatusOrder");
+                    b.ToTable("StatusOrder", "Purcharse");
                 });
 
             modelBuilder.Entity("E_Commerce.Domain.ControlAccess.Infos.Entities.Info", b =>
@@ -674,7 +675,7 @@ namespace E_Commerce.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("E_Commerce.Domain.Payment.PaymentMethod.Entities.PaymentMethod", "PaymentMethod")
+                    b.HasOne("E_Commerce.Domain.Payment.PaymentMethods.Entities.PaymentMethod", "PaymentMethod")
                         .WithOne("Order")
                         .HasForeignKey("E_Commerce.Domain.Purcharse.Orders.Entities.Order", "PaymentMethodId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -727,7 +728,7 @@ namespace E_Commerce.Infra.Data.Migrations
                     b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("E_Commerce.Domain.Payment.PaymentMethod.Entities.PaymentMethod", b =>
+            modelBuilder.Entity("E_Commerce.Domain.Payment.PaymentMethods.Entities.PaymentMethod", b =>
                 {
                     b.Navigation("Order")
                         .IsRequired();

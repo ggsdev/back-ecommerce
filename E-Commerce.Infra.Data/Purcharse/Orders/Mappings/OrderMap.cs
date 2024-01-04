@@ -9,7 +9,7 @@ namespace E_Commerce.Infra.Data.Purcharse.Orders.Mappings
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.ToTable(GlobalUtils.FormatTableName(Constants.PREFIXPURCHARSE, nameof(Order)));
+            builder.ToTable(nameof(Order), Constants.PREFIX_PURCHARSE);
 
             builder.HasKey(x => x.Id);
 
@@ -22,11 +22,11 @@ namespace E_Commerce.Infra.Data.Purcharse.Orders.Mappings
 
             builder.Property(x => x.FreightCost)
                 .HasColumnType("decimal")
-                .HasPrecision(Constants.PRICEPRECISION, Constants.PRICESCALE);
+                .HasPrecision(Constants.PRICE_PRECISION, Constants.PRICE_SCALE);
 
             builder.Property(x => x.Total)
                 .HasColumnType("decimal")
-                .HasPrecision(Constants.PRICEPRECISION, Constants.PRICESCALE);
+                .HasPrecision(Constants.PRICE_PRECISION, Constants.PRICE_SCALE);
 
             builder.HasOne(x => x.Buyer)
                 .WithMany(x => x.Orders)

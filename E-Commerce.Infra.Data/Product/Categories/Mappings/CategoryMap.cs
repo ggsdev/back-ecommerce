@@ -9,7 +9,7 @@ namespace E_Commerce.Infra.Data.Product.Categories.Mappings
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.ToTable(GlobalUtils.FormatTableName(Constants.PREFIXPRODUCT, nameof(Category)));
+            builder.ToTable(nameof(Category), Constants.PREFIX_PRODUCT);
 
             builder.HasKey(x => x.Id);
 

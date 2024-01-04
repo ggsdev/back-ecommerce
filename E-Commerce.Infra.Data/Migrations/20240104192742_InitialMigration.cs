@@ -11,8 +11,21 @@ namespace E_Commerce.Infra.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "ControlAccess");
+
+            migrationBuilder.EnsureSchema(
+                name: "Product");
+
+            migrationBuilder.EnsureSchema(
+                name: "Purcharse");
+
+            migrationBuilder.EnsureSchema(
+                name: "Payment");
+
             migrationBuilder.CreateTable(
-                name: "ControlAccess.Addresss",
+                name: "Address",
+                schema: "ControlAccess",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -29,28 +42,12 @@ namespace E_Commerce.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ControlAccess.Addresss", x => x.Id);
+                    table.PrimaryKey("PK_Address", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PaymentMethod",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PaymentMethodValue = table.Column<int>(type: "int", nullable: false),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PaymentMethod", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Product.Categorys",
+                name: "Category",
+                schema: "Product",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -63,27 +60,30 @@ namespace E_Commerce.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product.Categorys", x => x.Id);
+                    table.PrimaryKey("PK_Category", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product.Stocks",
+                name: "PaymentMethods",
+                schema: "Payment",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Quantity = table.Column<short>(type: "smallint", nullable: false),
-                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    PaymentMethodValue = table.Column<int>(type: "int", nullable: false),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    Description = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product.Stocks", x => x.Id);
+                    table.PrimaryKey("PK_PaymentMethods", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "StatusOrder",
+                schema: "Purcharse",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -99,7 +99,25 @@ namespace E_Commerce.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ControlAccess.Infos",
+                name: "Stock",
+                schema: "Product",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<short>(type: "smallint", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stock", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Info",
+                schema: "ControlAccess",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -112,17 +130,19 @@ namespace E_Commerce.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ControlAccess.Infos", x => x.Id);
+                    table.PrimaryKey("PK_Info", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ControlAccess.Infos_ControlAccess.Addresss_AddressId",
+                        name: "FK_Info_Address_AddressId",
                         column: x => x.AddressId,
-                        principalTable: "ControlAccess.Addresss",
+                        principalSchema: "ControlAccess",
+                        principalTable: "Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product.SubCategorys",
+                name: "SubCategory",
+                schema: "Product",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -135,17 +155,19 @@ namespace E_Commerce.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product.SubCategorys", x => x.Id);
+                    table.PrimaryKey("PK_SubCategory", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product.SubCategorys_Product.Categorys_CategoryId",
+                        name: "FK_SubCategory_Category_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Product.Categorys",
+                        principalSchema: "Product",
+                        principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ControlAccess.Users",
+                name: "User",
+                schema: "ControlAccess",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -161,24 +183,26 @@ namespace E_Commerce.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ControlAccess.Users", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ControlAccess.Users_ControlAccess.Infos_InfoId",
+                        name: "FK_User_Info_InfoId",
                         column: x => x.InfoId,
-                        principalTable: "ControlAccess.Infos",
+                        principalSchema: "ControlAccess",
+                        principalTable: "Info",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product.Items",
+                name: "Item",
+                schema: "Product",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "varchar(120)", maxLength: 120, nullable: false),
                     Description = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(12,2)", precision: 12, scale: 2, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     SubCategoryId = table.Column<int>(type: "int", nullable: false),
                     StockId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -186,47 +210,26 @@ namespace E_Commerce.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product.Items", x => x.Id);
+                    table.PrimaryKey("PK_Item", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product.Items_Product.Stocks_StockId",
+                        name: "FK_Item_Stock_StockId",
                         column: x => x.StockId,
-                        principalTable: "Product.Stocks",
+                        principalSchema: "Product",
+                        principalTable: "Stock",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Product.Items_Product.SubCategorys_SubCategoryId",
+                        name: "FK_Item_SubCategory_SubCategoryId",
                         column: x => x.SubCategoryId,
-                        principalTable: "Product.SubCategorys",
+                        principalSchema: "Product",
+                        principalTable: "SubCategory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ControlAccess.Sessions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Token = table.Column<string>(type: "varchar(400)", maxLength: 400, nullable: false),
-                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ControlAccess.Sessions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ControlAccess.Sessions_ControlAccess.Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "ControlAccess.Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Product.Orders",
+                name: "Order",
+                schema: "Purcharse",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -245,29 +248,59 @@ namespace E_Commerce.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product.Orders", x => x.Id);
+                    table.PrimaryKey("PK_Order", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product.Orders_ControlAccess.Users_BuyerId",
-                        column: x => x.BuyerId,
-                        principalTable: "ControlAccess.Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Product.Orders_PaymentMethod_PaymentMethodId",
+                        name: "FK_Order_PaymentMethods_PaymentMethodId",
                         column: x => x.PaymentMethodId,
-                        principalTable: "PaymentMethod",
+                        principalSchema: "Payment",
+                        principalTable: "PaymentMethods",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Product.Orders_StatusOrder_StatusOrderId",
+                        name: "FK_Order_StatusOrder_StatusOrderId",
                         column: x => x.StatusOrderId,
+                        principalSchema: "Purcharse",
                         principalTable: "StatusOrder",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Order_User_BuyerId",
+                        column: x => x.BuyerId,
+                        principalSchema: "ControlAccess",
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product.Images",
+                name: "Session",
+                schema: "ControlAccess",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Token = table.Column<string>(type: "varchar(400)", maxLength: 400, nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Session", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Session_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "ControlAccess",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Image",
+                schema: "Product",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -282,17 +315,19 @@ namespace E_Commerce.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product.Images", x => x.Id);
+                    table.PrimaryKey("PK_Image", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product.Images_Product.Items_ItemId",
+                        name: "FK_Image_Item_ItemId",
                         column: x => x.ItemId,
-                        principalTable: "Product.Items",
+                        principalSchema: "Product",
+                        principalTable: "Item",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product.Ratings",
+                name: "Rating",
+                schema: "Product",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -306,23 +341,26 @@ namespace E_Commerce.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product.Ratings", x => x.Id);
+                    table.PrimaryKey("PK_Rating", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product.Ratings_ControlAccess.Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "ControlAccess.Users",
+                        name: "FK_Rating_Item_ItemId",
+                        column: x => x.ItemId,
+                        principalSchema: "Product",
+                        principalTable: "Item",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Product.Ratings_Product.Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Product.Items",
+                        name: "FK_Rating_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "ControlAccess",
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product.OrderItemss",
+                name: "OrderItems",
+                schema: "Purcharse",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -337,125 +375,146 @@ namespace E_Commerce.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product.OrderItemss", x => x.Id);
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product.OrderItemss_Product.Items_ItemId",
+                        name: "FK_OrderItems_Item_ItemId",
                         column: x => x.ItemId,
-                        principalTable: "Product.Items",
+                        principalSchema: "Product",
+                        principalTable: "Item",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Product.OrderItemss_Product.Orders_OrderId",
+                        name: "FK_OrderItems_Order_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Product.Orders",
+                        principalSchema: "Purcharse",
+                        principalTable: "Order",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ControlAccess.Infos_AddressId",
-                table: "ControlAccess.Infos",
+                name: "IX_Category_Name",
+                schema: "Product",
+                table: "Category",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Image_ItemId",
+                schema: "Product",
+                table: "Image",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Info_AddressId",
+                schema: "ControlAccess",
+                table: "Info",
                 column: "AddressId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ControlAccess.Infos_Cellphone",
-                table: "ControlAccess.Infos",
+                name: "IX_Info_Cellphone",
+                schema: "ControlAccess",
+                table: "Info",
                 column: "Cellphone",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ControlAccess.Infos_Email",
-                table: "ControlAccess.Infos",
+                name: "IX_Info_Email",
+                schema: "ControlAccess",
+                table: "Info",
                 column: "Email",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ControlAccess.Sessions_UserId",
-                table: "ControlAccess.Sessions",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ControlAccess.Users_InfoId",
-                table: "ControlAccess.Users",
-                column: "InfoId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product.Categorys_Name",
-                table: "Product.Categorys",
+                name: "IX_Item_Name",
+                schema: "Product",
+                table: "Item",
                 column: "Name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product.Images_ItemId",
-                table: "Product.Images",
-                column: "ItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product.Items_Name",
-                table: "Product.Items",
-                column: "Name",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product.Items_StockId",
-                table: "Product.Items",
+                name: "IX_Item_StockId",
+                schema: "Product",
+                table: "Item",
                 column: "StockId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product.Items_SubCategoryId",
-                table: "Product.Items",
+                name: "IX_Item_SubCategoryId",
+                schema: "Product",
+                table: "Item",
                 column: "SubCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product.OrderItemss_ItemId",
-                table: "Product.OrderItemss",
-                column: "ItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product.OrderItemss_OrderId",
-                table: "Product.OrderItemss",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product.Orders_BuyerId",
-                table: "Product.Orders",
+                name: "IX_Order_BuyerId",
+                schema: "Purcharse",
+                table: "Order",
                 column: "BuyerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product.Orders_PaymentMethodId",
-                table: "Product.Orders",
+                name: "IX_Order_PaymentMethodId",
+                schema: "Purcharse",
+                table: "Order",
                 column: "PaymentMethodId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product.Orders_StatusOrderId",
-                table: "Product.Orders",
+                name: "IX_Order_StatusOrderId",
+                schema: "Purcharse",
+                table: "Order",
                 column: "StatusOrderId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product.Ratings_ItemId",
-                table: "Product.Ratings",
+                name: "IX_OrderItems_ItemId",
+                schema: "Purcharse",
+                table: "OrderItems",
                 column: "ItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product.Ratings_UserId",
-                table: "Product.Ratings",
+                name: "IX_OrderItems_OrderId",
+                schema: "Purcharse",
+                table: "OrderItems",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rating_ItemId",
+                schema: "Product",
+                table: "Rating",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rating_UserId",
+                schema: "Product",
+                table: "Rating",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product.SubCategorys_CategoryId",
-                table: "Product.SubCategorys",
+                name: "IX_Session_UserId",
+                schema: "ControlAccess",
+                table: "Session",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategory_CategoryId",
+                schema: "Product",
+                table: "SubCategory",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product.SubCategorys_Name",
-                table: "Product.SubCategorys",
+                name: "IX_SubCategory_Name",
+                schema: "Product",
+                table: "SubCategory",
                 column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_InfoId",
+                schema: "ControlAccess",
+                table: "User",
+                column: "InfoId",
                 unique: true);
         }
 
@@ -463,46 +522,60 @@ namespace E_Commerce.Infra.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ControlAccess.Sessions");
+                name: "Image",
+                schema: "Product");
 
             migrationBuilder.DropTable(
-                name: "Product.Images");
+                name: "OrderItems",
+                schema: "Purcharse");
 
             migrationBuilder.DropTable(
-                name: "Product.OrderItemss");
+                name: "Rating",
+                schema: "Product");
 
             migrationBuilder.DropTable(
-                name: "Product.Ratings");
+                name: "Session",
+                schema: "ControlAccess");
 
             migrationBuilder.DropTable(
-                name: "Product.Orders");
+                name: "Order",
+                schema: "Purcharse");
 
             migrationBuilder.DropTable(
-                name: "Product.Items");
+                name: "Item",
+                schema: "Product");
 
             migrationBuilder.DropTable(
-                name: "ControlAccess.Users");
+                name: "PaymentMethods",
+                schema: "Payment");
 
             migrationBuilder.DropTable(
-                name: "PaymentMethod");
+                name: "StatusOrder",
+                schema: "Purcharse");
 
             migrationBuilder.DropTable(
-                name: "StatusOrder");
+                name: "User",
+                schema: "ControlAccess");
 
             migrationBuilder.DropTable(
-                name: "Product.Stocks");
+                name: "Stock",
+                schema: "Product");
 
             migrationBuilder.DropTable(
-                name: "Product.SubCategorys");
+                name: "SubCategory",
+                schema: "Product");
 
             migrationBuilder.DropTable(
-                name: "ControlAccess.Infos");
+                name: "Info",
+                schema: "ControlAccess");
 
             migrationBuilder.DropTable(
-                name: "Product.Categorys");
+                name: "Category",
+                schema: "Product");
 
             migrationBuilder.DropTable(
-                name: "ControlAccess.Addresss");
+                name: "Address",
+                schema: "ControlAccess");
         }
     }
 }

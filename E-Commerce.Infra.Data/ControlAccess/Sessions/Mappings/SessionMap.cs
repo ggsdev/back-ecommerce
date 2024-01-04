@@ -1,5 +1,5 @@
-﻿using E_Commerce.Shared;
-using E_Commerce.Domain.ControlAccess.Sessions.Entities;
+﻿using E_Commerce.Domain.ControlAccess.Sessions.Entities;
+using E_Commerce.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,7 +9,7 @@ namespace E_Commerce.Infra.Data.ControlAccess.Sessions.Mappings
     {
         public void Configure(EntityTypeBuilder<Session> builder)
         {
-            builder.ToTable(GlobalUtils.FormatTableName(Constants.PREFIXCONTROLACCESS, nameof(Session)));
+            builder.ToTable(nameof(Session), Constants.PREFIX_CONTROL_ACCESS);
 
             builder.HasKey(x => x.Id);
 

@@ -17,7 +17,6 @@ using E_Commerce.Infra.Data.Product.Ratings.Repositories;
 using E_Commerce.Infra.Data.Product.Stocks.Repositories;
 using E_Commerce.Infra.Data.Product.SubCategories.Repositories;
 using E_Commerce.Shared;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace E_Commerce.Infra.Data
@@ -26,8 +25,6 @@ namespace E_Commerce.Infra.Data
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.ConnectionString));
-
             RegisterRepositories(services);
         }
 

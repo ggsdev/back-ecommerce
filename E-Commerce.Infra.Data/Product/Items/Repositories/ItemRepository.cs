@@ -40,11 +40,11 @@ namespace E_Commerce.Infra.Data.Product.Items.Repositories
 
                 if (!string.IsNullOrWhiteSpace(paramQuery.SortColumn))
                 {
-                    if (string.IsNullOrWhiteSpace(paramQuery.SortOrder) || paramQuery.SortOrder.Equals(Constants.ASCSORTORDER, StringComparison.OrdinalIgnoreCase))
+                    if (string.IsNullOrWhiteSpace(paramQuery.SortOrder) || paramQuery.SortOrder.Equals(Constants.ASC_SORT_ORDER, StringComparison.OrdinalIgnoreCase))
                     {
                         query = query.OrderBy(GetSortProperty(paramQuery.SortColumn));
                     }
-                    else if (paramQuery.SortOrder.Equals(Constants.DESCSORTORDER, StringComparison.OrdinalIgnoreCase))
+                    else if (paramQuery.SortOrder.Equals(Constants.DESC_SORT_ORDER, StringComparison.OrdinalIgnoreCase))
                     {
                         query = query.OrderByDescending(GetSortProperty(paramQuery.SortColumn));
                     }

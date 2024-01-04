@@ -25,9 +25,9 @@ namespace E_Commerce.Tests.Users
             var createdUser = new User();
 
             var addressDto = new AddressDto(
-                _fixture.Faker.Random.int(),
-                _fixture.Faker.Date.Past(),
-                _fixture.Faker.Date.Future(),
+                _fixture.Faker.Random.Int(),
+                _fixture.Faker.Date.Past().ToString("dd/MM/yyyy HH:mm:ss"),
+                _fixture.Faker.Date.Future().ToString("dd/MM/yyyy HH:mm:ss"),
                 _fixture.Faker.Address.StreetName(),
                 _fixture.Faker.Address.BuildingNumber(),
                 _fixture.Faker.Address.SecondaryAddress(),
@@ -38,18 +38,18 @@ namespace E_Commerce.Tests.Users
             );
 
             var infoDto = new InfoDto(
-                _fixture.Faker.Random.int(),
-                _fixture.Faker.Date.Past(),
-                _fixture.Faker.Date.Future(),
+                _fixture.Faker.Random.Int(),
+                _fixture.Faker.Date.Past().ToString("dd/MM/yyyy HH:mm:ss"),
+                _fixture.Faker.Date.Future().ToString("dd/MM/yyyy HH:mm:ss"),
                 _fixture.Faker.Phone.PhoneNumber(),
                 _fixture.Faker.Internet.Email(),
                 addressDto
             );
 
             var userDto = new UserDto(
-                _fixture.Faker.Random.int(),
-                _fixture.Faker.Date.Past(),
-                _fixture.Faker.Date.Future(),
+                _fixture.Faker.Random.Int(),
+                _fixture.Faker.Date.Past().ToString("dd/MM/yyyy HH:mm:ss"),
+                _fixture.Faker.Date.Future().ToString("dd/MM/yyyy HH:mm:ss"),
                 _fixture.Faker.Name.FirstName(),
                 _fixture.Faker.Name.LastName(),
                 _fixture.Faker.Random.Int(1, 100),

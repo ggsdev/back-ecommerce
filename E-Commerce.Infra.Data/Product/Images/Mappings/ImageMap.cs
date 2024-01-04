@@ -9,7 +9,7 @@ namespace E_Commerce.Infra.Data.Product.Images.Mappings
     {
         public void Configure(EntityTypeBuilder<Image> builder)
         {
-            builder.ToTable(GlobalUtils.FormatTableName(Constants.PREFIXPRODUCT, nameof(Image)));
+            builder.ToTable(nameof(Image), Constants.PREFIX_PRODUCT);
 
             builder.HasKey(x => x.Id);
 

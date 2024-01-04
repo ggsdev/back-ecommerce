@@ -9,7 +9,7 @@ namespace E_Commerce.Infra.Data.Purcharse.Status.Mappings
     {
         public void Configure(EntityTypeBuilder<StatusOrder> builder)
         {
-            builder.ToTable(GlobalUtils.FormatTableName(Constants.PREFIXPURCHARSE, nameof(StatusOrder)));
+            builder.ToTable(nameof(StatusOrder), Constants.PREFIX_PURCHARSE);
 
             builder.HasKey(x => x.Id);
 

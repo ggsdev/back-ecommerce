@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.Api._Base
 {
-    [Route(Constants.ApiPrefixFirstVersion + "/[controller]")]
+    [Route(Constants.API_PREFIX_FIRST_VERSION + "/[controller]")]
     public class HealthCheckController(DataContext dbContext) : ControllerBase
     {
         private readonly DataContext _dbContext = dbContext;

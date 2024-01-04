@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.Api.Controllers
 {
-    [Route(Constants.ApiPrefixFirstVersion + "/[controller]")]
+    [Route(Constants.API_PREFIX_FIRST_VERSION + "/[controller]")]
     [ServiceFilter(typeof(AuthenticationFilter))]
     public class CategoryController(ICategoryService service) : ControllerBase
     {
@@ -40,7 +40,7 @@ namespace E_Commerce.Api.Controllers
             var data = await _service.CreateCategory(body, loggedUser!);
 
 
-            return Created($"{Constants.ApiPrefixFirstVersion}/Category", data);
+            return Created($"{Constants.API_PREFIX_FIRST_VERSION}/Category", data);
         }
 
         [HttpPut("{id}")]

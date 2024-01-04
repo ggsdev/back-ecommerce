@@ -46,6 +46,9 @@ namespace E_Commerce.Infra.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseSqlServer(Configuration.ConnectionString,
+            x => x.MigrationsHistoryTable(Constants.MIGRATIONS_HISTORY_TABLE_NAME, Constants.PREFIX_SYSTEM));
+
             optionsBuilder.UseLoggerFactory(MyLoggerFactory);
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
