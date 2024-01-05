@@ -7,4 +7,33 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Purcharse\OrdersItems\**" />
+    <EmbeddedResource Remove="Purcharse\OrdersItems\**" />
+    <None Remove="Purcharse\OrdersItems\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\E-Commerce.DTOs\E-Commerce.DTOs.csproj" />
+    <ProjectReference Include="..\E-Commerce.Shared\E-Commerce.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Purcharse\Emails\Entities\" />
+    <Folder Include="Purcharse\Emails\Interfaces\" />
+    <Folder Include="Purcharse\Emails\Services\" />
+    <Folder Include="Purcharse\Orders\Interfaces\" />
+    <Folder Include="Purcharse\Orders\Services\" />
+    <Folder Include="Purcharse\StatusOrder\Interfaces\" />
+    <Folder Include="Purcharse\StatusOrder\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="FluentValidation" Version="11.8.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
+  </ItemGroup>
+
 </Project>
