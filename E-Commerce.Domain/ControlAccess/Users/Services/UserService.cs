@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using E_Commerce.Domain.ControlAccess.Infos.Interfaces;
-using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
 using E_Commerce.DTOs.DTOs;
 using E_Commerce.DTOs.ViewModels.ControlAccess;
@@ -31,11 +30,8 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
             return userDto;
         }
 
-        public async Task DeleteUser(int id, User loggedUser)
+        public async Task DeleteUser(int id)
         {
-            if (loggedUser.IsAdmin is false)
-                throw new Exception(DomainMessages.UserNotAdmin);
-
             var userToBeDeleted = await _repository.GetByIdClean(id)
                 ?? throw new Exception(DomainMessages.UserNotFound);
 
@@ -46,11 +42,8 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
             return;
         }
 
-        public async Task<PaginatedDataDTO<UserDto>> GetAllUsers(FilterQuery queryParams, string requestUrl, User loggedUser)
+        public async Task<PaginatedDataDTO<UserDto>> GetAllUsers(FilterQuery queryParams, string requestUrl)
         {
-            if (loggedUser.IsAdmin is false)
-                throw new Exception(DomainMessages.UserNotFound);
-
             var totalCount = await _repository.Count();
 
             var users = await _repository.GetAll(queryParams);
@@ -62,11 +55,8 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
             return paginatedData;
         }
 
-        public async Task<UserDto> GetUserById(int id, User loggedUser)
+        public async Task<UserDto> GetUserById(int id)
         {
-            if (loggedUser.IsAdmin is false && loggedUser.Id != id)
-                throw new Exception(DomainMessages.UserNotAdmin);
-
             var user = await _repository.GetById(id)
                 ?? throw new Exception(DomainMessages.UserNotFound);
 
@@ -75,11 +65,8 @@ namespace E_Commerce.Domain.ControlAccess.Users.Services
             return userDto;
         }
 
-        public async Task<UserDto> UpdateUser(UpdateUserViewModel body, int id, User loggedUser)
+        public async Task<UserDto> UpdateUser(UpdateUserViewModel body, int id)
         {
-            if (loggedUser.IsAdmin is false && loggedUser.Id != id)
-                throw new Exception(DomainMessages.UserNotAdmin);
-
             var user = await _repository.GetById(id)
                ?? throw new Exception(DomainMessages.UserNotFound);
 

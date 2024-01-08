@@ -6,7 +6,6 @@ namespace E_Commerce.Api._Base.Middlewares
     public class AuthMiddleware(RequestDelegate next)
     {
         private readonly RequestDelegate _next = next;
-
         public async Task InvokeAsync(HttpContext context)
         {
             var authenticateResult = await context.AuthenticateAsync();

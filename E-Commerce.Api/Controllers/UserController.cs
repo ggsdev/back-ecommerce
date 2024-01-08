@@ -1,5 +1,4 @@
 ﻿using E_Commerce.Api._Base.Filters;
-using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.ControlAccess.Users.Interfaces;
 using E_Commerce.DTOs.ViewModels.ControlAccess;
 using E_Commerce.Shared;
@@ -18,10 +17,9 @@ namespace E_Commerce.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] FilterQuery queryParams)
         {
-            var loggedUser = HttpContext.Items["User"] as User;
-
             var requestUrl = Request.GetEncodedUrl();
-            var data = await _service.GetAllUsers(queryParams, requestUrl, loggedUser!);
+
+            var data = await _service.GetAllUsers(queryParams, requestUrl);
 
             return Ok(data);
         }
@@ -29,9 +27,7 @@ namespace E_Commerce.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var loggedUser = HttpContext.Items["User"] as User;
-
-            var data = await _service.GetUserById(id, loggedUser!);
+            var data = await _service.GetUserById(id);
 
             return Ok(data);
         }
@@ -46,21 +42,19 @@ namespace E_Commerce.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = Constants.ADMIN)]
         public async Task<IActionResult> Put(UpdateUserViewModel body, int id)
         {
-            var loggedUser = HttpContext.Items["User"] as User;
-
-            var data = await _service.UpdateUser(body, id, loggedUser!);
+            var data = await _service.UpdateUser(body, id);
 
             return Ok(data);
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = Constants.ADMIN)]
         public async Task<IActionResult> Delete(int id)
         {
-            var loggedUser = HttpContext.Items["User"] as User;
-
-            await _service.DeleteUser(id, loggedUser!);
+            await _service.DeleteUser(id);
 
             return NoContent();
         }

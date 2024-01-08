@@ -107,6 +107,16 @@ static void ConfigureJwtAuthentication(IServiceCollection services, string secre
             ValidateIssuer = false,
             ValidateAudience = false
         };
+
+        x.Events = new JwtBearerEvents
+        {
+            OnForbidden = context =>
+            {
+                context.Response.StatusCode = 403;
+                context.Response.ContentType = "application/json";
+                return context.Response.WriteAsync(Constants.FORBIDDEN_DEFAULT_MESSAGE);
+            }
+        };
     });
 }
 

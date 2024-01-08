@@ -1,35 +1,23 @@
-﻿using E_Commerce.Infra.Data;
+﻿using E_Commerce.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce.Api._Base.Filters
 {
-    public class AuthenticationFilter(DataContext context) : IAsyncActionFilter
+    public class AuthenticationFilter : IAsyncActionFilter
     {
-        private readonly DataContext _context = context;
-
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var userId = context.HttpContext.Items["Id"] as int?;
+            var userId = context.HttpContext.Items["Id"];
 
-            if (userId is int)
+            if (userId is null)
             {
-                var user = await _context.Users
-                    .FirstOrDefaultAsync(x => x.Id == userId);
-
-                if (user is null)
+                context.Result = new UnauthorizedObjectResult(new
                 {
-                    context.Result = new UnauthorizedObjectResult(new
-                    {
-                        Message = "User not identified, please login first"
-                    });
+                    Message = Constants.NOT_LOGGED_USER
+                });
 
-                    return;
-                }
-
-                context.HttpContext.Items["User"] = user;
-
+                return;
             }
 
             await next();

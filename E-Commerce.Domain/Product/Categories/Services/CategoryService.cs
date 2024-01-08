@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using E_Commerce.Shared;
-using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Categories.Interfaces;
 using E_Commerce.DTOs.DTOs;
 using E_Commerce.DTOs.ViewModels.Product;
+using E_Commerce.Shared;
 
 namespace E_Commerce.Domain.Product.Categories.Services
 {
@@ -13,11 +12,8 @@ namespace E_Commerce.Domain.Product.Categories.Services
         private readonly ICategoryFactory _factory = factory;
         private readonly IMapper _mapper = mapper;
 
-        public async Task<CategoryDto> CreateCategory(CreateUpdateCategoryViewModel viewModel, User loggedUser)
+        public async Task<CategoryDto> CreateCategory(CreateUpdateCategoryViewModel viewModel)
         {
-            if (!loggedUser.IsAdmin)
-                throw new Exception("User not admin");
-
             var anyByName = await _repository.AnyByName(viewModel.Name);
 
             if (anyByName)
@@ -33,11 +29,8 @@ namespace E_Commerce.Domain.Product.Categories.Services
             return categoryDto;
         }
 
-        public async Task DeleteCategory(int id, User loggedUser)
+        public async Task DeleteCategory(int id)
         {
-            if (!loggedUser.IsAdmin)
-                throw new Exception("User not admin");
-
             var categoryToBeDeleted = await _repository.GetByIdClean(id)
                 ?? throw new Exception("Category not found");
 
@@ -48,11 +41,8 @@ namespace E_Commerce.Domain.Product.Categories.Services
             return;
         }
 
-        public async Task<CategoryDto> UpdateCategory(CreateUpdateCategoryViewModel viewModel, int id, User loggedUser)
+        public async Task<CategoryDto> UpdateCategory(CreateUpdateCategoryViewModel viewModel, int id)
         {
-            if (!loggedUser.IsAdmin)
-                throw new Exception("User not admin");
-
             var categoryInDatabase = await _repository.GetByIdClean(id)
                 ?? throw new Exception("Category not found");
 

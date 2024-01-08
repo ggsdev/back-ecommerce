@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Categories.Interfaces;
 using E_Commerce.Domain.Product.Images.Interfaces;
 using E_Commerce.Domain.Product.Items.Interfaces;
@@ -19,11 +18,8 @@ namespace E_Commerce.Domain.Product.Items.Services
         private readonly IMapper _mapper = mapper;
         private readonly IImageService _imageService = imageService;
 
-        public async Task<ItemDto> CreateItem(CreateUpdateItemViewModel viewModel, User loggedUser)
+        public async Task<ItemDto> CreateItem(CreateUpdateItemViewModel viewModel)
         {
-            if (!loggedUser.IsAdmin)
-                throw new UnauthorizedAccessException(DomainMessages.UserNotAdmin);
-
             var anyInDatabase = await _repository.AnyByName(viewModel.Name);
 
             if (anyInDatabase)
@@ -47,11 +43,8 @@ namespace E_Commerce.Domain.Product.Items.Services
             return itemDto;
         }
 
-        public async Task DeleteItem(int id, User loggedUser)
+        public async Task DeleteItem(int id)
         {
-            if (!loggedUser.IsAdmin)
-                throw new UnauthorizedAccessException(DomainMessages.UserNotAdmin);
-
             var item = await _repository.GetByIdClean(id)
                 ?? throw new Exception("Not found");
 
@@ -85,11 +78,8 @@ namespace E_Commerce.Domain.Product.Items.Services
             return paginatedData;
         }
 
-        public async Task<ItemDto> UpdateItem(CreateUpdateItemViewModel viewModel, int id, User loggedUser)
+        public async Task<ItemDto> UpdateItem(CreateUpdateItemViewModel viewModel, int id)
         {
-            if (!loggedUser.IsAdmin)
-                throw new UnauthorizedAccessException(DomainMessages.UserNotAdmin);
-
             var anyInDatabase = await _repository.AnyByName(viewModel.Name, id);
 
             if (anyInDatabase)

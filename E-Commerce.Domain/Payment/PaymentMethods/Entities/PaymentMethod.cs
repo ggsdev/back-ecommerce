@@ -10,5 +10,6 @@ namespace E_Commerce.Domain.Payment.PaymentMethods.Entities
         public bool IsDefault { get; set; }
         public string? Description { get; set; }
         public Order Order { get; set; } = null!;
+        //service para fazer pagamentos id one-one com PaymentMethod
     }
 }

@@ -17,6 +17,12 @@
 
         public const string MIGRATIONS_HISTORY_TABLE_NAME = "MigrationsHistory";
         public const string PREFIX_SYSTEM = "System";
-    }
 
+        public const string ADMIN = "Admin";
+        public const string USER = "User";
+
+        public const string NOT_LOGGED_USER = "User not identified, please login first";
+
+        public const string FORBIDDEN_DEFAULT_MESSAGE = "{\"message\": \"User is not authorized to access this resource.\"}";
+    }
 }

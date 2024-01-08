@@ -1,5 +1,4 @@
 ﻿using E_Commerce.Api._Base.Filters;
-using E_Commerce.Domain.ControlAccess.Users.Entities;
 using E_Commerce.Domain.Product.Items.Interfaces;
 using E_Commerce.DTOs.ViewModels.Product;
 using E_Commerce.Shared;
@@ -36,31 +35,28 @@ namespace E_Commerce.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateUpdateItemViewModel body, CancellationToken ct)
+        [Authorize(Roles = Constants.ADMIN)]
+        public async Task<IActionResult> Post([FromBody] CreateUpdateItemViewModel body)
         {
-            var loggedUser = HttpContext.Items["User"] as User;
-
-            var data = await _service.CreateItem(body, loggedUser!);
+            var data = await _service.CreateItem(body);
 
             return Created($"{Constants.API_PREFIX_FIRST_VERSION}/Item", data);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] CreateUpdateItemViewModel body, CancellationToken ct)
+        [Authorize(Roles = Constants.ADMIN)]
+        public async Task<IActionResult> Put(int id, [FromBody] CreateUpdateItemViewModel body)
         {
-            var loggedUser = HttpContext.Items["User"] as User;
-
-            var data = await _service.UpdateItem(body, id, loggedUser!);
+            var data = await _service.UpdateItem(body, id);
 
             return Ok(data);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id, CancellationToken ct)
+        [Authorize(Roles = Constants.ADMIN)]
+        public async Task<IActionResult> Delete(int id)
         {
-            var loggedUser = HttpContext.Items["User"] as User;
-
-            await _service.DeleteItem(id, loggedUser!);
+            await _service.DeleteItem(id);
 
             return NoContent();
         }
