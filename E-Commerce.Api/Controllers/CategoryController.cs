@@ -1,4 +1,5 @@
-﻿using E_Commerce.Domain.Product.Categories.Interfaces;
+﻿using E_Commerce.Domain.Product.Categories.Entities;
+using E_Commerce.Domain.Product.Categories.Interfaces;
 using E_Commerce.DTOs.ViewModels.Product;
 using E_Commerce.Shared;
 using Microsoft.AspNetCore.Authorization;
@@ -35,7 +36,7 @@ namespace E_Commerce.Api.Controllers
         {
             var data = await _service.CreateCategory(body);
 
-            return Created($"{Constants.API_PREFIX_FIRST_VERSION}/Category", data);
+            return Created($"{Constants.API_PREFIX_FIRST_VERSION}/{nameof(Category)}", data);
         }
 
         [HttpPut("{id}")]

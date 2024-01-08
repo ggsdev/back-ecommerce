@@ -36,7 +36,7 @@ namespace E_Commerce.Api.Controllers
         {
             var data = await _service.CreateUser(body);
 
-            return Created($"{Constants.API_PREFIX_FIRST_VERSION}/User", data);
+            return Created($"{Constants.API_PREFIX_FIRST_VERSION}/{nameof(Domain.ControlAccess.Users.Entities.User)}", data);
         }
 
         [HttpPut("{id}")]

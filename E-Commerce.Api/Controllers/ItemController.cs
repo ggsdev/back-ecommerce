@@ -1,4 +1,5 @@
-﻿using E_Commerce.Domain.Product.Items.Interfaces;
+﻿using E_Commerce.Domain.Product.Items.Entities;
+using E_Commerce.Domain.Product.Items.Interfaces;
 using E_Commerce.DTOs.ViewModels.Product;
 using E_Commerce.Shared;
 using Microsoft.AspNetCore.Authorization;
@@ -38,7 +39,7 @@ namespace E_Commerce.Api.Controllers
         {
             var data = await _service.CreateItem(body);
 
-            return Created($"{Constants.API_PREFIX_FIRST_VERSION}/Item", data);
+            return Created($"{Constants.API_PREFIX_FIRST_VERSION}/{nameof(Item)}", data);
         }
 
         [HttpPut("{id}")]

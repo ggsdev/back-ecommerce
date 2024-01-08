@@ -67,8 +67,6 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
     services.AddExceptionHandler<GlobalErrorHandler>();
     services.AddProblemDetails();
 
-    //services.AddScoped<AuthenticationFilter>();
-
     var mapperConfig = new MapperConfiguration(cfg =>
     {
         cfg.AddProfile<MappingProfile>();
