@@ -1,5 +1,4 @@
-﻿using E_Commerce.Api._Base.Filters;
-using E_Commerce.Domain.ControlAccess.Users.Interfaces;
+﻿using E_Commerce.Domain.ControlAccess.Users.Interfaces;
 using E_Commerce.DTOs.ViewModels.ControlAccess;
 using E_Commerce.Shared;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_Commerce.Api.Controllers
 {
     [Route(Constants.API_PREFIX_FIRST_VERSION + "/[controller]")]
-    [ServiceFilter(typeof(AuthenticationFilter))]
     public class UserController(IUserService service) : ControllerBase
     {
         private readonly IUserService _service = service;

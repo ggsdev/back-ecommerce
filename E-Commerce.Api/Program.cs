@@ -1,5 +1,4 @@
 using AutoMapper;
-using E_Commerce.Api._Base.Filters;
 using E_Commerce.Api._Base.Handlers;
 using E_Commerce.Api._Base.Middlewares;
 using E_Commerce.Infra.IoC;
@@ -68,7 +67,7 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
     services.AddExceptionHandler<GlobalErrorHandler>();
     services.AddProblemDetails();
 
-    services.AddScoped<AuthenticationFilter>();
+    //services.AddScoped<AuthenticationFilter>();
 
     var mapperConfig = new MapperConfiguration(cfg =>
     {

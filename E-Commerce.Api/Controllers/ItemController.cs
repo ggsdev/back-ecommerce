@@ -1,5 +1,4 @@
-﻿using E_Commerce.Api._Base.Filters;
-using E_Commerce.Domain.Product.Items.Interfaces;
+﻿using E_Commerce.Domain.Product.Items.Interfaces;
 using E_Commerce.DTOs.ViewModels.Product;
 using E_Commerce.Shared;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_Commerce.Api.Controllers
 {
     [Route(Constants.API_PREFIX_FIRST_VERSION + "/[controller]")]
-    [ServiceFilter(typeof(AuthenticationFilter))]
     public class ItemController(IItemService service) : ControllerBase
     {
         private readonly IItemService _service = service;
